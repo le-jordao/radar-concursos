@@ -1,0 +1,129 @@
+{
+  "nome": "Candidato",
+  "base": {
+    "municipio": "Sao Pedro da Aldeia",
+    "uf": "RJ",
+    "raio_confortavel_km": 45,
+    "raio_maximo_km": 150,
+    "_nota": "Sem GPS. O programa nunca acessa sensor de localizacao nem envia posicao para lugar nenhum."
+  },
+  "formacao": [
+    {
+      "curso": "Engenharia Civil",
+      "nivel": "superior",
+      "registro": "CREA"
+    }
+  ],
+  "experiencia": [
+    {
+      "orgao": "SEME - Secretaria Municipal de Esportes",
+      "municipio": "Cabo Frio",
+      "uf": "RJ",
+      "competencias": [
+        "administracao_publica_municipal",
+        "gestao_esporte_lazer",
+        "convenios_prestacao_contas",
+        "rotinas_administrativas",
+        "contratos_publicos"
+      ]
+    }
+  ],
+  "trilhas": [
+    {
+      "id": "T1",
+      "nome": "Engenharia Civil",
+      "peso": 1.0,
+      "cargos_alvo": [
+        "engenheiro civil",
+        "engenheiro",
+        "analista de infraestrutura",
+        "analista - engenharia",
+        "especialista em engenharia",
+        "engenheiro de obras",
+        "engenheiro fiscal",
+        "perito em engenharia",
+        "analista ambiental - engenharia"
+      ],
+      "nota": "Aderencia maxima: formacao direta + CREA. Menor concorrencia absoluta por exigir diploma especifico."
+    },
+    {
+      "id": "T2",
+      "nome": "Fiscalizacao e Obras Publicas",
+      "peso": 0.9,
+      "cargos_alvo": [
+        "fiscal de obras",
+        "fiscal de obras e posturas",
+        "fiscal de posturas",
+        "agente de fiscalizacao",
+        "fiscal municipal",
+        "analista de controle urbano",
+        "arquiteto"
+      ],
+      "nota": "Conteudo tecnico quase identico ao de Engenharia Civil, mas muitas vezes nivel medio/tecnico - prova mais facil."
+    },
+    {
+      "id": "T3",
+      "nome": "Gestao Publica e Administrativo",
+      "peso": 0.75,
+      "cargos_alvo": [
+        "agente administrativo",
+        "assistente administrativo",
+        "auxiliar administrativo",
+        "analista administrativo",
+        "tecnico administrativo",
+        "gestor publico",
+        "analista de politicas publicas",
+        "assistente de gestao",
+        "tecnico em administracao"
+      ],
+      "nota": "Aproveita a experiencia na SEME. Prova sem conteudo tecnico pesado, mas concorrencia alta."
+    },
+    {
+      "id": "T4",
+      "nome": "Esporte e Lazer (gestao)",
+      "peso": 0.8,
+      "cargos_alvo": [
+        "gestor de esportes",
+        "coordenador de esportes",
+        "analista de esporte e lazer",
+        "agente de esporte",
+        "tecnico em esporte e lazer",
+        "assessor de esportes"
+      ],
+      "nota": "Experiencia direta na SEME conta como diferencial em prova de titulos e em entrevistas/PS."
+    }
+  ],
+  "exclusoes": [
+    "professor",
+    "medico",
+    "enfermeiro",
+    "guarda-vidas",
+    "motorista",
+    "agente de saude",
+    "endemias",
+    "merendeira",
+    "gari",
+    "vigilante",
+    "educacao fisica - licenciatura"
+  ],
+  "preferencias": {
+    "salario_minimo_aceitavel": 2500,
+    "aceita_nivel_medio": true,
+    "aceita_cadastro_reserva": true,
+    "aceita_processo_seletivo_temporario": false
+  },
+  "pesos": {
+    "aderencia": 30,
+    "proximidade": 35,
+    "chance": 15,
+    "retorno": 10,
+    "janela": 10,
+    "_nota": "Proximidade e o maior peso: deslocamento e a restricao principal do candidato."
+  },
+  "privacidade": {
+    "geolocalizacao": false,
+    "exportar_perfil": false,
+    "_nota": "perfil.json nunca entra no dados.json exportado. No export, o município-base também é trocado pelo rótulo de região, para que a página publicada não revele onde você mora.",
+    "rotulo_publico": "Região dos Lagos"
+  }
+}

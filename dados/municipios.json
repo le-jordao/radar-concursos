@@ -1,0 +1,56 @@
+{
+  "_nota": "Distancia rodoviaria aproximada a partir de Sao Pedro da Aldeia-RJ, em km. Base do score de proximidade. Nenhuma coordenada de GPS e guardada: o programa nao acessa sensor de localizacao.",
+  "origem": "Sao Pedro da Aldeia-RJ",
+  "distancias_km": {
+    "Sao Pedro da Aldeia": 0,
+    "Iguaba Grande": 13,
+    "Cabo Frio": 15,
+    "Arraial do Cabo": 22,
+    "Araruama": 25,
+    "Armacao dos Buzios": 35,
+    "Saquarema": 45,
+    "Silva Jardim": 65,
+    "Rio das Ostras": 65,
+    "Casimiro de Abreu": 80,
+    "Rio Bonito": 80,
+    "Marica": 90,
+    "Cachoeiras de Macacu": 95,
+    "Tangua": 100,
+    "Macae": 105,
+    "Itaborai": 105,
+    "Sao Goncalo": 120,
+    "Niteroi": 125,
+    "Nova Friburgo": 125,
+    "Carapebus": 125,
+    "Conceicao de Macabu": 130,
+    "Quissama": 135,
+    "Rio de Janeiro": 140,
+    "Duque de Caxias": 150,
+    "Nilopolis": 155,
+    "Nova Iguacu": 160,
+    "Teresopolis": 165,
+    "Campos dos Goytacazes": 180,
+    "Petropolis": 195,
+    "Engenheiro Paulo de Frontin": 215,
+    "Nacional - prova no Rio de Janeiro": 140,
+    "Estadual RJ - prova no Rio de Janeiro": 140,
+    "Estadual RJ - prova em varios polos": 45
+  },
+  "polos_de_prova_comuns": {
+    "_nota": "Concursos estaduais e federais costumam aplicar prova em polos. Se o polo mais perto for na Regiao dos Lagos, a distancia efetiva cai muito.",
+    "Regiao dos Lagos": [
+      "Sao Pedro da Aldeia",
+      "Cabo Frio",
+      "Araruama"
+    ],
+    "Norte Fluminense": [
+      "Macae",
+      "Campos dos Goytacazes"
+    ],
+    "Metropolitana": [
+      "Rio de Janeiro",
+      "Niteroi",
+      "Sao Goncalo"
+    ]
+  }
+}

@@ -1,0 +1,8 @@
+# Banco local: guarda os sinais capturados e as suas decisoes. Nao vai para o repositorio.
+dados/radar.db
+
+# Export estatico, gerado por "python app.py exportar". Regeneravel.
+web/dados.json
+
+__pycache__/
+*.pyc

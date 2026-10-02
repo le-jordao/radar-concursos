@@ -1,0 +1,500 @@
+{
+  "_nota": "Base de conteúdo programático normalizada. Cada concurso referencia estas disciplinas; a matriz de sobreposição e o plano de estudo são calculados a partir daqui.",
+  "eixos": {
+    "basico": "Base comum — cai em praticamente todo concurso",
+    "juridico": "Legislação e direito — cai em quase todo cargo público",
+    "engenharia": "Conhecimentos específicos de Engenharia Civil",
+    "gestao": "Gestão pública, esporte e lazer, administração"
+  },
+  "disciplinas": {
+    "LP": {
+      "nome": "Língua Portuguesa",
+      "eixo": "basico",
+      "recorrencia": 0.99,
+      "horas_base": 60,
+      "dica": "Maior retorno absoluto do radar: cai em 99% dos editais, com peso alto. Prioridade máxima e permanente — nunca pare de resolver questões.",
+      "topicos": [
+        "Interpretação e compreensão de texto",
+        "Ortografia oficial",
+        "Acentuação gráfica",
+        "Classes de palavras (morfologia)",
+        "Concordância verbal e nominal",
+        "Regência verbal e nominal; crase",
+        "Pontuação",
+        "Sintaxe: período simples e composto, coordenação e subordinação",
+        "Colocação pronominal",
+        "Semântica: sinonímia, antonímia, homonímia, paronímia",
+        "Coesão e coerência textual",
+        "Figuras de linguagem",
+        "Redação oficial e correspondência administrativa",
+        "Funções da linguagem e tipologia textual"
+      ]
+    },
+    "RLM": {
+      "nome": "Raciocínio Lógico e Matemática",
+      "eixo": "basico",
+      "recorrencia": 0.85,
+      "horas_base": 45,
+      "dica": "Para engenheiro é o ponto mais barato da prova: a base matemática você já tem. Foque só em lógica proposicional e análise combinatória, que não são tratadas na graduação.",
+      "topicos": [
+        "Lógica proposicional: conectivos, tabela-verdade, equivalências",
+        "Negação de proposições (De Morgan)",
+        "Argumentação e validade de argumentos",
+        "Quantificadores e lógica de primeira ordem",
+        "Sequências e raciocínio sequencial",
+        "Conjuntos e diagramas de Venn",
+        "Razão, proporção, regra de três",
+        "Porcentagem; juros simples e compostos",
+        "Análise combinatória e probabilidade",
+        "Problemas aritméticos e algébricos",
+        "Sistemas de medida e grandezas",
+        "Noções de estatística: média, mediana, moda, desvio"
+      ]
+    },
+    "INFO": {
+      "nome": "Noções de Informática",
+      "eixo": "basico",
+      "recorrencia": 0.72,
+      "horas_base": 25,
+      "dica": "Conteúdo decorativo e repetitivo. Resolve-se com questões: 300 questões da banca do edital valem mais do que 20h de videoaula.",
+      "topicos": [
+        "Windows 10/11: conceitos, arquivos e pastas, atalhos",
+        "Microsoft Word e LibreOffice Writer",
+        "Microsoft Excel e LibreOffice Calc: fórmulas e funções",
+        "PowerPoint e apresentações",
+        "Internet, navegadores e correio eletrônico",
+        "Segurança da informação: vírus, malware, backup, criptografia",
+        "Computação em nuvem e armazenamento online",
+        "Redes de computadores: noções básicas",
+        "LGPD — Lei Geral de Proteção de Dados (noções)"
+      ]
+    },
+    "ATU": {
+      "nome": "Atualidades e Conhecimentos Gerais",
+      "eixo": "basico",
+      "recorrencia": 0.45,
+      "horas_base": 15,
+      "dica": "Baixo custo-benefício para estudo profundo. Leia notícias 15 min/dia e revise os últimos 12 meses na semana da prova.",
+      "topicos": [
+        "Atualidades nacionais e internacionais dos últimos 12 meses",
+        "Meio ambiente e sustentabilidade",
+        "Economia e política brasileira",
+        "Tecnologia e inovação",
+        "Cultura e esporte"
+      ]
+    },
+    "LOCAL": {
+      "nome": "História, Geografia e Lei Orgânica locais",
+      "eixo": "basico",
+      "recorrencia": 0.4,
+      "horas_base": 12,
+      "dica": "NÃO é conteúdo compartilhável entre municípios diferentes — por isso a matriz desconta esta disciplina. Estude só na reta final e só do município da prova. Vantagem sua: a Região dos Lagos você já conhece.",
+      "nao_compartilhavel": true,
+      "topicos": [
+        "História do município: fundação, emancipação, símbolos",
+        "Geografia do município: limites, relevo, hidrografia, clima",
+        "Economia local e principais atividades",
+        "História e geografia do Estado do Rio de Janeiro",
+        "Lei Orgânica do Município"
+      ]
+    },
+    "DIR_CONST": {
+      "nome": "Direito Constitucional",
+      "eixo": "juridico",
+      "recorrencia": 0.7,
+      "horas_base": 35,
+      "dica": "Em concurso municipal, ~80% das questões saem de três blocos: art. 5º, arts. 37 a 41 (Administração Pública) e organização dos Municípios. Decore a letra desses artigos.",
+      "topicos": [
+        "Princípios fundamentais (arts. 1º a 4º)",
+        "Direitos e garantias fundamentais (art. 5º)",
+        "Direitos sociais (arts. 6º a 11)",
+        "Organização do Estado: União, Estados, Municípios, DF",
+        "Competências dos Municípios (arts. 29 e 30)",
+        "Administração Pública (arts. 37 a 41) — ponto crítico",
+        "Servidores públicos: regime, estabilidade, acumulação, teto",
+        "Poderes Legislativo, Executivo e Judiciário",
+        "Ordem social: saúde, educação, meio ambiente, desporto (art. 217)",
+        "Política urbana (arts. 182 e 183)",
+        "Controle de constitucionalidade (noções)"
+      ]
+    },
+    "DIR_ADM": {
+      "nome": "Direito Administrativo",
+      "eixo": "juridico",
+      "recorrencia": 0.78,
+      "horas_base": 45,
+      "dica": "Segunda maior recorrência do radar, depois de Português. Engenheiro que vira fiscal de obra vive disso na prática — estude pensando no dia a dia.",
+      "topicos": [
+        "Princípios da Administração Pública (LIMPE + razoabilidade, eficiência)",
+        "Organização administrativa: direta, indireta, autarquias, fundações",
+        "Atos administrativos: conceito, requisitos, atributos, invalidação",
+        "Poderes administrativos: vinculado, discricionário, hierárquico, disciplinar, regulamentar, de polícia",
+        "Agentes públicos: cargo, emprego, função, provimento, vacância",
+        "Responsabilidade civil do Estado",
+        "Controle da Administração Pública",
+        "Improbidade administrativa (Lei 8.429/92, com alterações da Lei 14.230/21)",
+        "Processo administrativo (Lei 9.784/99)",
+        "Serviços públicos e concessões (Lei 8.987/95)",
+        "Bens públicos e desapropriação",
+        "Lei de Acesso à Informação (Lei 12.527/11)"
+      ]
+    },
+    "LIC": {
+      "nome": "Licitações e Contratos (Lei 14.133/2021)",
+      "eixo": "juridico",
+      "recorrencia": 0.62,
+      "horas_base": 30,
+      "dica": "DISCIPLINA-PONTE: cai tanto no bloco jurídico quanto no técnico de engenharia (contratação de obras, regimes de execução, aditivos). Estudar uma vez pontua em dobro. Prioridade alta no seu perfil.",
+      "ponte": true,
+      "topicos": [
+        "Princípios e âmbito de aplicação da Lei 14.133/2021",
+        "Agentes de contratação e governança",
+        "Fase preparatória: ETP, termo de referência, projeto básico e executivo",
+        "Modalidades: pregão, concorrência, concurso, leilão, diálogo competitivo",
+        "Critérios de julgamento: menor preço, maior desconto, técnica e preço",
+        "Regimes de execução de obras: empreitada por preço global, por preço unitário, integrada, semi-integrada, tarefa",
+        "Orçamento estimado, sigilo e pesquisa de preços",
+        "Contratação direta: dispensa e inexigibilidade",
+        "Habilitação: jurídica, técnica, fiscal, econômico-financeira",
+        "Contratos administrativos: duração, alterações, reajuste e reequilíbrio",
+        "Aditivos: limites de 25% e 50%, acréscimos e supressões",
+        "Fiscalização e gestão de contratos de obra",
+        "Recebimento provisório e definitivo do objeto",
+        "Sanções administrativas e nulidades",
+        "Lei 8.666/93 (ainda cobrada em editais antigos — comparar)"
+      ]
+    },
+    "ORC_PUB": {
+      "nome": "Orçamento Público e Finanças (LRF)",
+      "eixo": "juridico",
+      "recorrencia": 0.3,
+      "horas_base": 20,
+      "dica": "Cai mais em cargos de controle (TCE, TCM) e gestão. Para prefeitura pequena, estudo raso basta.",
+      "topicos": [
+        "Ciclo orçamentário: PPA, LDO, LOA",
+        "Princípios orçamentários",
+        "Receita e despesa pública: estágios",
+        "Restos a pagar e despesas de exercícios anteriores",
+        "Lei de Responsabilidade Fiscal (LC 101/2000): limites de pessoal e endividamento",
+        "Lei 4.320/64: noções",
+        "Transparência e prestação de contas"
+      ]
+    },
+    "ETICA": {
+      "nome": "Ética no Serviço Público e Estatuto do Servidor",
+      "eixo": "juridico",
+      "recorrencia": 0.55,
+      "horas_base": 15,
+      "dica": "Conteúdo curto e de alto acerto. O Estatuto muda de município para município, mas a lógica (deveres, proibições, licenças, processo disciplinar) é quase idêntica — estude uma vez e adapte.",
+      "topicos": [
+        "Ética, moral e função pública",
+        "Código de Ética do servidor (Decreto 1.171/94 como referência)",
+        "Deveres e proibições do servidor",
+        "Regime disciplinar: penalidades e processo administrativo disciplinar",
+        "Licenças, afastamentos e direitos do servidor",
+        "Posse, exercício, estágio probatório e estabilidade",
+        "Estatuto do Servidor Municipal (específico do edital)",
+        "Lei 8.112/90 (para concursos federais)"
+      ]
+    },
+    "EC_MAT": {
+      "nome": "Materiais de Construção e Tecnologia do Concreto",
+      "eixo": "engenharia",
+      "recorrencia": 0.88,
+      "horas_base": 25,
+      "dica": "Núcleo duro da engenharia em concurso. Cai em praticamente todo edital de Engenheiro Civil e também em Fiscal de Obras.",
+      "topicos": [
+        "Aglomerantes: cimento, cal, gesso — tipos e aplicações",
+        "Agregados: classificação, granulometria, ensaios",
+        "Concreto: dosagem, traço, fck, controle tecnológico",
+        "Ensaios do concreto: slump test, rompimento de corpos de prova (NBR 5739)",
+        "Aditivos e adições",
+        "Aço para concreto armado: CA-25, CA-50, CA-60",
+        "Argamassas: tipos e aplicações",
+        "Madeira, cerâmica, vidro, polímeros",
+        "Impermeabilização e materiais asfálticos",
+        "Normas: NBR 6118, NBR 12655, NBR 7212"
+      ]
+    },
+    "EC_EST": {
+      "nome": "Estruturas e Resistência dos Materiais",
+      "eixo": "engenharia",
+      "recorrencia": 0.8,
+      "horas_base": 35,
+      "dica": "Você já viu tudo na graduação. Em concurso cai no nível conceitual e de cálculo rápido — duas semanas de revisão resolvem.",
+      "topicos": [
+        "Estática: equilíbrio, apoios, reações",
+        "Esforços solicitantes: normal, cortante, momento fletor, torção",
+        "Diagramas de esforços em vigas e pórticos",
+        "Treliças: método dos nós e das seções",
+        "Resistência dos materiais: tensão, deformação, Lei de Hooke",
+        "Flexão, cisalhamento e flambagem",
+        "Concreto armado: dimensionamento de vigas, lajes, pilares (NBR 6118)",
+        "Estados limites último e de serviço",
+        "Estruturas metálicas (NBR 8800) — noções",
+        "Estruturas de madeira (NBR 7190) — noções",
+        "Ações e segurança nas estruturas (NBR 8681)"
+      ]
+    },
+    "EC_GEO": {
+      "nome": "Geotecnia, Solos e Fundações",
+      "eixo": "engenharia",
+      "recorrencia": 0.7,
+      "horas_base": 25,
+      "dica": "Em município litorâneo (Região dos Lagos) cai muito sobre solos arenosos, lençol freático alto e fundações em areia — conteúdo que você vive na prática.",
+      "topicos": [
+        "Origem e formação dos solos; índices físicos",
+        "Classificação dos solos: granulometria, limites de Atterberg, SUCS, HRB",
+        "Compactação: Proctor, controle de campo",
+        "Permeabilidade e fluxo de água em solos",
+        "Tensões no solo: totais, efetivas e neutras",
+        "Adensamento e recalques",
+        "Resistência ao cisalhamento dos solos",
+        "Empuxos de terra e muros de arrimo",
+        "Investigação geotécnica: sondagem SPT (NBR 6484)",
+        "Fundações rasas: sapatas, radier (NBR 6122)",
+        "Fundações profundas: estacas, tubulões",
+        "Estabilidade de taludes e contenções"
+      ]
+    },
+    "EC_HID": {
+      "nome": "Hidráulica, Hidrologia e Drenagem",
+      "eixo": "engenharia",
+      "recorrencia": 0.72,
+      "horas_base": 25,
+      "dica": "Alta recorrência em prefeituras e órgãos ambientais (INEA, CEDAE). Combina com Saneamento — estude os dois juntos.",
+      "topicos": [
+        "Hidrostática: pressão, empuxo",
+        "Escoamento em condutos forçados: Bernoulli, perda de carga",
+        "Fórmulas de Hazen-Williams e Universal",
+        "Escoamento livre: canais, fórmula de Manning",
+        "Bombas e estações elevatórias, NPSH, curva característica",
+        "Ciclo hidrológico, bacias hidrográficas",
+        "Precipitação, chuva de projeto, tempo de recorrência",
+        "Método racional e cálculo de vazão de projeto",
+        "Drenagem urbana: sarjetas, bocas de lobo, galerias",
+        "Microdrenagem e macrodrenagem",
+        "Reservatórios de amortecimento e soluções compensatórias"
+      ]
+    },
+    "EC_SAN": {
+      "nome": "Saneamento Básico e Meio Ambiente",
+      "eixo": "engenharia",
+      "recorrencia": 0.65,
+      "horas_base": 25,
+      "dica": "Disciplina em alta: o Marco do Saneamento (Lei 14.026/2020) cai em todo edital novo. Essencial para INEA, CEDAE e prefeituras do litoral.",
+      "topicos": [
+        "Marco Legal do Saneamento (Lei 11.445/07, alterada pela Lei 14.026/20)",
+        "Sistemas de abastecimento de água: captação, adução, reservação, distribuição",
+        "Tratamento de água: ETA, coagulação, floculação, decantação, filtração, desinfecção",
+        "Qualidade da água e potabilidade (Portaria GM/MS 888/2021)",
+        "Esgotamento sanitário: coleta, interceptores, emissários",
+        "Tratamento de esgoto: ETE, lodos ativados, UASB, lagoas de estabilização",
+        "Resíduos sólidos: PNRS (Lei 12.305/10), coleta, aterro sanitário",
+        "Política Nacional de Recursos Hídricos (Lei 9.433/97)",
+        "Licenciamento ambiental: Resoluções CONAMA 001/86 e 237/97",
+        "EIA/RIMA e estudos ambientais",
+        "Gestão de áreas costeiras e restingas (relevante na Região dos Lagos)"
+      ]
+    },
+    "EC_ORC": {
+      "nome": "Orçamento de Obras, Custos e Planejamento",
+      "eixo": "engenharia",
+      "recorrencia": 0.85,
+      "horas_base": 30,
+      "dica": "DISCIPLINA-PONTE de ouro: conecta engenharia com a Lei 14.133. Cai em quase todo edital de engenheiro do setor público e é onde a banca mais cobra decoreba (BDI, encargos sociais, SINAPI). Prioridade máxima no eixo técnico.",
+      "ponte": true,
+      "topicos": [
+        "Levantamento de quantitativos e memória de cálculo",
+        "Composição de custos unitários",
+        "SINAPI e SICRO: estrutura e uso",
+        "Encargos sociais e trabalhistas",
+        "BDI — Benefícios e Despesas Indiretas (Acórdão TCU 2622/2013)",
+        "Curva ABC de insumos e serviços",
+        "Cronograma físico-financeiro",
+        "Planejamento de obras: PERT/CPM, caminho crítico",
+        "Medição de serviços e boletim de medição",
+        "Reajustamento e reequilíbrio econômico-financeiro",
+        "Projeto básico x projeto executivo (requisitos legais)",
+        "Sobrepreço, superfaturamento e jogo de planilha",
+        "Noções de BIM aplicado a orçamento"
+      ]
+    },
+    "EC_EXE": {
+      "nome": "Execução e Fiscalização de Obras",
+      "eixo": "engenharia",
+      "recorrencia": 0.82,
+      "horas_base": 25,
+      "dica": "Conteúdo que você já domina na prática. Em concurso cai muito ligado à fiscalização contratual — leia junto com a Lei 14.133.",
+      "ponte": true,
+      "topicos": [
+        "Canteiro de obras: layout e instalações provisórias",
+        "Serviços preliminares, locação de obra",
+        "Formas, escoramentos e cimbramentos",
+        "Alvenaria estrutural e de vedação",
+        "Revestimentos, pisos e pinturas",
+        "Coberturas e telhados",
+        "Esquadrias e vidros",
+        "Patologias das construções: fissuras, corrosão, umidade, recuperação estrutural",
+        "Manutenção predial e inspeção predial (NBR 16747)",
+        "Fiscalização de obras públicas: atribuições do fiscal e do gestor",
+        "Diário de obra, ART/RRT e responsabilidade técnica",
+        "Recebimento de obra e as-built",
+        "Lei 6.496/77 e resoluções do CONFEA/CREA"
+      ]
+    },
+    "EC_INST": {
+      "nome": "Instalações Prediais",
+      "eixo": "engenharia",
+      "recorrencia": 0.6,
+      "horas_base": 18,
+      "dica": "Conteúdo objetivo e normativo. Boa relação acerto/hora de estudo.",
+      "topicos": [
+        "Instalações hidráulicas prediais de água fria (NBR 5626)",
+        "Instalações de água quente",
+        "Esgoto sanitário predial (NBR 8160)",
+        "Águas pluviais prediais (NBR 10844)",
+        "Instalações elétricas prediais (NBR 5410): dimensionamento, proteção, aterramento",
+        "SPDA — para-raios (NBR 5419)",
+        "Prevenção e combate a incêndio (NBR 9077, NBR 13714, normas do CBMERJ)",
+        "Instalações de gás",
+        "Elevadores e transporte vertical — noções",
+        "Eficiência energética em edificações"
+      ]
+    },
+    "EC_TOP": {
+      "nome": "Topografia e Geoprocessamento",
+      "eixo": "engenharia",
+      "recorrencia": 0.55,
+      "horas_base": 15,
+      "dica": "Conteúdo curto, fórmulas fechadas e alto índice de acerto. Boa disciplina para garantir pontos.",
+      "topicos": [
+        "Planimetria: medição de ângulos e distâncias",
+        "Altimetria: nivelamento geométrico e trigonométrico",
+        "Poligonais e cálculo de áreas",
+        "Curvas de nível e modelagem de terreno",
+        "Cálculo de volumes: terraplenagem, cortes e aterros",
+        "Escalas e desenho topográfico",
+        "Georreferenciamento, GPS/GNSS",
+        "Sistemas de projeção e SIRGAS 2000",
+        "Noções de SIG/GIS e sensoriamento remoto",
+        "Cadastro técnico multifinalitário municipal"
+      ]
+    },
+    "EC_URB": {
+      "nome": "Urbanismo, Plano Diretor e Acessibilidade",
+      "eixo": "engenharia",
+      "recorrencia": 0.62,
+      "horas_base": 20,
+      "dica": "Cai muito em prefeitura e em cargos de Fiscal de Obras/Posturas. Conteúdo jurídico-técnico: Estatuto da Cidade + Plano Diretor local + NBR 9050.",
+      "ponte": true,
+      "topicos": [
+        "Estatuto da Cidade (Lei 10.257/2001) e instrumentos urbanísticos",
+        "Plano Diretor municipal",
+        "Lei de uso e ocupação do solo; zoneamento",
+        "Parcelamento do solo urbano (Lei 6.766/79): loteamento e desmembramento",
+        "Código de Obras e Código de Posturas municipais",
+        "Índices urbanísticos: taxa de ocupação, coeficiente de aproveitamento, recuos, gabarito",
+        "Licenciamento de obras: alvará e habite-se",
+        "Regularização fundiária (Lei 13.465/2017)",
+        "Acessibilidade — NBR 9050 e Lei 13.146/2015",
+        "Mobilidade urbana (Lei 12.587/2012)",
+        "Patrimônio histórico e tombamento — noções"
+      ]
+    },
+    "EC_TRA": {
+      "nome": "Estradas, Pavimentação e Transportes",
+      "eixo": "engenharia",
+      "recorrencia": 0.5,
+      "horas_base": 20,
+      "dica": "Peso alto em DER, DNIT e secretarias de obras. Em prefeitura pequena cai pouco — module o estudo pelo edital.",
+      "topicos": [
+        "Geometria de vias: curvas horizontais e verticais, superelevação",
+        "Terraplenagem: distribuição de terras, diagrama de Bruckner",
+        "Pavimentos flexíveis: estrutura e dimensionamento (método DNIT)",
+        "Pavimentos rígidos",
+        "Materiais asfálticos: CAP, CBUQ, imprimação, pintura de ligação",
+        "Ensaios: CBR, Marshall",
+        "Drenagem rodoviária",
+        "Sinalização viária horizontal, vertical e semafórica",
+        "Conservação e restauração de pavimentos",
+        "Noções de engenharia de tráfego e CTB"
+      ]
+    },
+    "EC_SEG": {
+      "nome": "Segurança do Trabalho e Normas Regulamentadoras",
+      "eixo": "engenharia",
+      "recorrencia": 0.58,
+      "horas_base": 15,
+      "dica": "Decoreba pura (NRs), com alto retorno: poucas horas, muitas questões fáceis. Foque NR-18, NR-35, NR-6, NR-10 e NR-1.",
+      "topicos": [
+        "NR-1: disposições gerais e gerenciamento de riscos (PGR)",
+        "NR-4: SESMT",
+        "NR-5: CIPA",
+        "NR-6: EPI",
+        "NR-7: PCMSO",
+        "NR-9: avaliação de riscos ambientais",
+        "NR-10: segurança em instalações elétricas",
+        "NR-12: máquinas e equipamentos",
+        "NR-15 e NR-16: insalubridade e periculosidade",
+        "NR-18: condições de trabalho na construção — ponto crítico",
+        "NR-35: trabalho em altura",
+        "Acidente de trabalho, CAT e responsabilidade"
+      ]
+    },
+    "EC_DES": {
+      "nome": "Desenho Técnico, Projeto e BIM",
+      "eixo": "engenharia",
+      "recorrencia": 0.42,
+      "horas_base": 12,
+      "dica": "Cai pouco e de forma conceitual. Estudo rápido na reta final.",
+      "topicos": [
+        "Normas de desenho técnico (NBR 6492, NBR 8196)",
+        "Projeções ortogonais, cortes e vistas",
+        "Leitura e interpretação de projetos: arquitetônico, estrutural, instalações",
+        "Escalas e cotagem",
+        "CAD: conceitos e comandos básicos",
+        "BIM: conceitos, dimensões (3D a 7D), Decreto 10.306/2020",
+        "Compatibilização de projetos"
+      ]
+    },
+    "GEST_PUB": {
+      "nome": "Administração Pública e Gestão",
+      "eixo": "gestao",
+      "recorrencia": 0.48,
+      "horas_base": 20,
+      "dica": "Sua experiência na SEME já cobre boa parte do conteúdo prático. Estude a parte teórica (modelos de administração, planejamento estratégico).",
+      "topicos": [
+        "Evolução da administração pública: patrimonialista, burocrática, gerencial",
+        "Planejamento estratégico no setor público",
+        "Gestão por processos e por resultados",
+        "Gestão de pessoas no setor público",
+        "Qualidade no serviço público e atendimento ao cidadão",
+        "Gestão de projetos: noções de PMBOK",
+        "Convênios, termos de colaboração e fomento (Lei 13.019/2014 — MROSC)",
+        "Prestação de contas de recursos públicos",
+        "Transparência, controle social e ouvidoria",
+        "Governo digital e Lei 14.129/2021"
+      ]
+    },
+    "ESP_POL": {
+      "nome": "Políticas Públicas de Esporte e Lazer",
+      "eixo": "gestao",
+      "recorrencia": 0.08,
+      "horas_base": 15,
+      "dica": "Nicho estreito, mas onde sua experiência na SEME vira vantagem competitiva real. Só estude se um edital de esporte/lazer entrar na sua lista.",
+      "topicos": [
+        "Esporte como direito social (art. 217 da CF/88)",
+        "Lei Geral do Esporte (Lei 14.597/2023, que substituiu a Lei Pelé 9.615/98)",
+        "Sistema Nacional do Esporte",
+        "Lei de Incentivo ao Esporte (Lei 11.438/2006)",
+        "Manifestações do esporte: educacional, participação, rendimento, formação",
+        "Políticas públicas de lazer e equipamentos esportivos",
+        "Gestão de instalações esportivas municipais",
+        "Eventos esportivos: planejamento e execução",
+        "Financiamento do esporte e captação de recursos",
+        "Esporte e inclusão social; paradesporto"
+      ]
+    }
+  }
+}

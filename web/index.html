@@ -1,0 +1,682 @@
+<title>Radar de Concursos</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+
+<style>
+/* Layout: coluna única de 980px, cabeçalho fixo com o número que importa,
+   três vistas (decidir / conteúdo comum / plano) trocadas por abas. */
+:root {
+  --papel:      #f7f6f3;
+  --carta:      #ffffff;
+  --tinta:      #16181d;
+  --tinta-2:    #5a6069;
+  --tinta-3:    #8b919b;
+  --linha:      #e2e1dc;
+  --linha-2:    #cfcec8;
+  --azul:       #2a5ca8;
+  --azul-fraco: #e8eef8;
+  --agora:      #a8520b;
+  --agora-fraco:#fbeee2;
+  --prep:       #2a5ca8;
+  --prep-fraco: #e8eef8;
+  --mon:        #6b7280;
+  --mon-fraco:  #eeeeec;
+  --ref:        #9aa0a8;
+  --ok:         #2f6b43;
+  --sobre-barra:#ffffff;
+
+  --display: "Archivo", "Segoe UI", system-ui, sans-serif;
+  --dado:    "IBM Plex Mono", "Cascadia Mono", Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --papel: #121316; --carta: #1a1c20; --tinta: #eceef1; --tinta-2: #a2a8b2;
+    --tinta-3: #747b85; --linha: #2a2d33; --linha-2: #3a3e46;
+    --azul: #7ba5e8; --azul-fraco: #1d2838;
+    --agora: #e8a05c; --agora-fraco: #33261a;
+    --prep: #7ba5e8; --prep-fraco: #1d2838;
+    --mon: #959ba5; --mon-fraco: #24262b;
+    --ref: #6b7079; --ok: #6cbd8a; --sobre-barra: #0f1115;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --papel: #121316; --carta: #1a1c20; --tinta: #eceef1; --tinta-2: #a2a8b2;
+  --tinta-3: #747b85; --linha: #2a2d33; --linha-2: #3a3e46;
+  --azul: #7ba5e8; --azul-fraco: #1d2838;
+  --agora: #e8a05c; --agora-fraco: #33261a;
+  --prep: #7ba5e8; --prep-fraco: #1d2838;
+  --mon: #959ba5; --mon-fraco: #24262b;
+  --ref: #6b7079; --ok: #6cbd8a; --sobre-barra: #0f1115;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0; background: var(--papel); color: var(--tinta);
+  font-family: var(--display); font-size: 15px; line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+h1, h2, h3 { margin: 0; text-wrap: balance; font-weight: 600; letter-spacing: -0.012em; }
+button { font: inherit; cursor: pointer; }
+.mono { font-family: var(--dado); font-variant-numeric: tabular-nums; }
+
+/* ---------------------------------------------------------- cabeçalho */
+.topo {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20;
+  background: color-mix(in srgb, var(--papel) 92%, transparent);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--linha);
+}
+.topo-dentro {
+  max-width: 980px; margin: 0 auto; padding: 14px 20px 0;
+  display: flex; flex-wrap: wrap; align-items: baseline; gap: 10px 18px;
+}
+.marca { font-size: 17px; font-weight: 700; letter-spacing: -0.02em; }
+.marca span { color: var(--tinta-3); font-weight: 400; }
+.resumo {
+  margin-left: auto; display: flex; gap: 18px; align-items: baseline;
+  font-size: 12.5px; color: var(--tinta-2);
+}
+.resumo b { font-family: var(--dado); font-size: 15px; color: var(--tinta); font-weight: 600; }
+
+.abas { max-width: 980px; margin: 0 auto; padding: 10px 20px 0; display: flex; gap: 2px; }
+.aba {
+  appearance: none; border: 0; background: none; color: var(--tinta-2);
+  padding: 8px 14px 11px; font-size: 13.5px; font-weight: 500;
+  border-bottom: 2px solid transparent; margin-bottom: -1px; white-space: nowrap;
+}
+.aba:hover { color: var(--tinta); }
+.aba[aria-selected="true"] { color: var(--tinta); border-bottom-color: var(--azul); }
+.aba:focus-visible { outline: 2px solid var(--azul); outline-offset: -2px; border-radius: 3px; }
+
+main { max-width: 980px; margin: 0 auto; padding-block: 22px 72px; padding-inline: 20px; }
+
+/* ----------------------------------------------------------- utilidades */
+.secao-titulo { display: flex; align-items: baseline; gap: 10px; margin-bottom: 4px; }
+.secao-titulo h2 { font-size: 16px; }
+.nota { color: var(--tinta-2); font-size: 13px; max-width: 64ch; margin: 0 0 18px; }
+.etiqueta {
+  font-size: 10.5px; font-weight: 600; letter-spacing: 0.09em; text-transform: uppercase;
+  color: var(--tinta-3);
+}
+
+.filtros { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px; }
+.chip {
+  border: 1px solid var(--linha-2); background: var(--carta); color: var(--tinta-2);
+  border-radius: 999px; padding: 5px 13px; font-size: 12.5px; font-weight: 500;
+}
+.chip[aria-pressed="true"] { background: var(--tinta); color: var(--papel); border-color: var(--tinta); }
+.chip:focus-visible { outline: 2px solid var(--azul); outline-offset: 2px; }
+
+/* --------------------------------------------------------------- cards */
+.lista { display: flex; flex-direction: column; gap: 9px; }
+.card {
+  background: var(--carta); border: 1px solid var(--linha); border-radius: 7px;
+  border-left: 3px solid var(--cor, var(--mon));
+  padding: 14px 16px; min-width: 0;
+}
+.card.escolhido { border-color: var(--ok); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--ok) 35%, transparent); }
+.card.apagado { opacity: 0.45; }
+.card-topo { display: flex; align-items: flex-start; gap: 14px; }
+.card-id { min-width: 0; flex: 1; }
+.card-orgao { font-size: 15px; font-weight: 600; letter-spacing: -0.01em; }
+.card-cargo { color: var(--tinta-2); font-size: 13px; margin-top: 1px; }
+
+.acao {
+  font-family: var(--dado); font-size: 10.5px; font-weight: 600; letter-spacing: 0.07em;
+  padding: 3px 8px; border-radius: 4px; background: var(--cor-fraca); color: var(--cor);
+  white-space: nowrap; align-self: center;
+}
+.pontos { text-align: right; flex-shrink: 0; }
+.pontos .n { font-family: var(--dado); font-size: 19px; font-weight: 600; line-height: 1; }
+.barra { width: 54px; height: 3px; background: var(--linha); border-radius: 2px; margin-top: 5px; overflow: hidden; }
+.barra i { display: block; height: 100%; background: var(--cor, var(--azul)); }
+
+.fatos {
+  display: flex; flex-wrap: wrap; gap: 4px 16px; margin-top: 10px;
+  font-size: 12.5px; color: var(--tinta-2);
+}
+.fatos b { font-family: var(--dado); font-weight: 500; color: var(--tinta); }
+.aviso {
+  margin-top: 10px; padding: 7px 10px; border-radius: 5px; font-size: 12.5px;
+  background: var(--agora-fraco); color: var(--agora); font-weight: 500;
+}
+.acoes { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+.bt {
+  border: 1px solid var(--linha-2); background: transparent; color: var(--tinta-2);
+  border-radius: 5px; padding: 5px 11px; font-size: 12.5px; font-weight: 500;
+}
+.bt:hover { border-color: var(--tinta-3); color: var(--tinta); }
+.bt.forte { background: var(--tinta); border-color: var(--tinta); color: var(--papel); }
+.bt.marcado { background: var(--ok); border-color: var(--ok); color: #fff; }
+.bt:focus-visible { outline: 2px solid var(--azul); outline-offset: 2px; }
+
+.detalhe { margin-top: 13px; padding-top: 13px; border-top: 1px dashed var(--linha-2); font-size: 13px; }
+.porque { display: grid; grid-template-columns: 94px 1fr; gap: 3px 12px; margin-bottom: 12px; }
+.porque dt { color: var(--tinta-3); font-size: 11.5px; padding-top: 2px; }
+.porque dd { margin: 0; color: var(--tinta-2); }
+.porque dd b { font-family: var(--dado); color: var(--tinta); font-weight: 500; }
+.obs { color: var(--tinta-2); margin: 0 0 12px; }
+.discs { display: flex; flex-wrap: wrap; gap: 4px; }
+.disc {
+  font-size: 11.5px; padding: 2px 8px; border-radius: 4px;
+  background: var(--mon-fraco); color: var(--tinta-2); border: 1px solid transparent;
+}
+.disc.tec { background: var(--azul-fraco); color: var(--azul); }
+
+/* --------------------------------------------------- núcleo comum (chart) */
+.nucleo { display: flex; flex-direction: column; gap: 2px; margin-bottom: 30px; }
+.linha-n {
+  display: grid; grid-template-columns: minmax(0, 1fr) 72px; gap: 14px; align-items: center;
+  padding: 7px 0; border-bottom: 1px solid var(--linha);
+}
+.linha-n:hover { background: color-mix(in srgb, var(--azul) 4%, transparent); }
+.n-nome { display: flex; align-items: baseline; gap: 8px; min-width: 0; }
+.n-nome span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 13.5px; }
+.n-trilho { height: 20px; background: var(--linha); border-radius: 3px; overflow: hidden; position: relative; }
+.n-preench {
+  height: 100%; background: var(--azul); display: flex; align-items: center;
+  padding-left: 8px; color: var(--sobre-barra); font-family: var(--dado); font-size: 11px; font-weight: 500;
+}
+.n-preench.base { background: var(--tinta); }
+.n-preench.local { background: var(--ref); }
+.n-horas { font-family: var(--dado); font-size: 12px; color: var(--tinta-2); text-align: right; }
+.medalha {
+  font-size: 9.5px; font-weight: 700; letter-spacing: 0.06em; padding: 1px 5px;
+  border-radius: 3px; background: var(--agora-fraco); color: var(--agora); flex-shrink: 0;
+}
+
+/* ------------------------------------------------------------- matriz */
+.rolagem { overflow-x: auto; border: 1px solid var(--linha); border-radius: 7px; background: var(--carta); }
+table.matriz { border-collapse: collapse; font-family: var(--dado); font-size: 11px; }
+table.matriz th, table.matriz td { padding: 0; }
+table.matriz th.lado {
+  text-align: right; padding: 0 10px; white-space: nowrap; font-weight: 500;
+  font-family: var(--display); font-size: 12px; color: var(--tinta-2);
+  position: sticky; left: 0; background: var(--carta); z-index: 1;
+}
+table.matriz th.topo-col { height: 86px; vertical-align: bottom; padding-bottom: 6px; width: 34px; }
+table.matriz th.topo-col div {
+  writing-mode: vertical-rl; transform: rotate(180deg);
+  font-family: var(--display); font-size: 11px; font-weight: 500; color: var(--tinta-2);
+  white-space: nowrap; max-height: 78px; overflow: hidden;
+}
+table.matriz td.cel {
+  width: 34px; height: 30px; text-align: center; color: var(--tinta);
+  border: 1px solid var(--carta);
+}
+table.matriz td.cel.eu { background: var(--tinta) !important; color: var(--papel); }
+
+/* ------------------------------------------------------------- blocos */
+.blocos { display: grid; grid-template-columns: repeat(auto-fit, minmax(265px, 1fr)); gap: 10px; }
+.bloco { background: var(--carta); border: 1px solid var(--linha); border-radius: 7px; padding: 14px 16px; min-width: 0; }
+.bloco h3 { font-size: 14px; }
+.bloco .resumo-b { color: var(--tinta-2); font-size: 12.5px; margin: 3px 0 11px; }
+.bloco ol { margin: 0; padding-left: 17px; font-size: 13px; color: var(--tinta); }
+.bloco li { margin-bottom: 3px; }
+.bloco li small { color: var(--tinta-3); }
+.bloco .rodape {
+  margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--linha);
+  font-family: var(--dado); font-size: 11.5px; color: var(--tinta-2);
+}
+.bloco .rodape b { color: var(--ok); }
+
+/* -------------------------------------------------------------- plano */
+.etapa { background: var(--carta); border: 1px solid var(--linha); border-radius: 7px; margin-bottom: 7px; min-width: 0; }
+.etapa-cab {
+  display: grid; grid-template-columns: 26px minmax(0, 1fr) auto; gap: 12px;
+  align-items: center; padding: 12px 15px; width: 100%; text-align: left;
+  background: none; border: 0; color: inherit;
+}
+.etapa.feito .etapa-cab .e-nome { text-decoration: line-through; color: var(--tinta-3); }
+.caixa {
+  width: 19px; height: 19px; border: 1.5px solid var(--linha-2); border-radius: 4px;
+  background: transparent; display: grid; place-items: center; color: transparent; flex-shrink: 0;
+  font-size: 12px; line-height: 1;
+}
+.etapa.feito .caixa { background: var(--ok); border-color: var(--ok); color: #fff; }
+.e-nome { font-size: 14px; font-weight: 500; }
+.e-sub { font-size: 12px; color: var(--tinta-2); margin-top: 1px; }
+.e-dir { text-align: right; font-family: var(--dado); font-size: 12px; color: var(--tinta-2); }
+.e-dir b { display: block; font-size: 14px; color: var(--tinta); font-weight: 600; }
+.topicos { padding: 0 15px 15px 53px; }
+.topicos .dica {
+  background: var(--azul-fraco); color: var(--azul); padding: 9px 12px; border-radius: 5px;
+  font-size: 12.5px; margin-bottom: 12px;
+}
+.topicos ul { margin: 0; padding-left: 16px; columns: 2; column-gap: 26px; font-size: 13px; color: var(--tinta-2); }
+.topicos li { margin-bottom: 4px; break-inside: avoid; }
+
+/* ------------------------------------------------------------- sinais */
+.sinais { display: flex; flex-direction: column; gap: 1px; }
+.sinal {
+  display: grid; grid-template-columns: 80px minmax(0, 1fr) 76px; gap: 12px;
+  padding: 9px 0; border-bottom: 1px solid var(--linha); font-size: 13px; align-items: baseline;
+}
+.sinal a { color: var(--tinta); text-decoration: none; }
+.sinal a:hover { text-decoration: underline; }
+.sinal .quando { font-family: var(--dado); font-size: 11.5px; color: var(--tinta-3); }
+.sinal .fase {
+  font-family: var(--dado); font-size: 10px; font-weight: 600; letter-spacing: 0.06em;
+  padding: 2px 6px; border-radius: 3px; text-align: center;
+  background: var(--cor-fraca, var(--mon-fraco)); color: var(--cor, var(--tinta-2));
+}
+.vazio { color: var(--tinta-3); font-size: 13px; padding: 26px 0; text-align: center; }
+
+@media (max-width: 620px) {
+  .resumo { margin-left: 0; width: 100%; gap: 14px; }
+  .topicos ul { columns: 1; }
+  .topicos { padding-left: 15px; }
+  .porque { grid-template-columns: 1fr; gap: 0 0; }
+  .porque dt { margin-top: 7px; }
+  .sinal { grid-template-columns: 1fr; gap: 2px; }
+  .sinal .fase { justify-self: start; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+</style>
+
+<header class="topo">
+  <div class="topo-dentro">
+    <div class="marca">Radar de Concursos <span id="base">·</span></div>
+    <div class="resumo" id="resumo"></div>
+  </div>
+  <nav class="abas" role="tablist">
+    <button class="aba" role="tab" aria-selected="true" data-vista="radar">Decidir</button>
+    <button class="aba" role="tab" aria-selected="false" data-vista="conteudo">Conteúdo em comum</button>
+    <button class="aba" role="tab" aria-selected="false" data-vista="plano">Plano de estudo</button>
+    <button class="aba" role="tab" aria-selected="false" data-vista="sinais">Sinais</button>
+  </nav>
+</header>
+
+<main>
+  <section id="v-radar">
+    <div class="secao-titulo"><h2>O que decidir agora</h2></div>
+    <p class="nota">Ordenado por aderência ao seu perfil: formação em engenharia civil, base em casa e passagem pela SEME. Marque <b>Vou fazer</b> e as outras duas abas se reorganizam só em torno do que você escolheu.</p>
+    <div class="filtros" id="filtros"></div>
+    <div class="lista" id="lista"></div>
+  </section>
+
+  <section id="v-conteudo" hidden>
+    <div class="secao-titulo"><h2>Uma matéria, vários concursos</h2></div>
+    <p class="nota">A barra mostra quantos dos seus concursos caem na mesma matéria. Começar pelas barras cheias é o que mais rende: você estuda uma vez e pontua em todas as provas de uma vez.</p>
+    <div class="nucleo" id="nucleo"></div>
+
+    <div class="secao-titulo"><h2>Conteúdo compartilhado, par a par</h2></div>
+    <p class="nota">Percentual do conteúdo que cada dupla tem em comum, em horas de estudo. Acima de 75% dá para preparar as duas provas quase como uma só. Conteúdo de município (Lei Orgânica, história local) fica fora da conta, porque não se aproveita.</p>
+    <div class="rolagem" id="matriz-caixa"><table class="matriz" id="matriz"></table></div>
+
+    <div class="secao-titulo" style="margin-top:30px"><h2>Blocos para estudar juntos</h2></div>
+    <p class="nota">Agrupados por conteúdo, não por órgão. Dentro de um bloco, cada concurso a mais custa poucas horas extras.</p>
+    <div class="blocos" id="blocos"></div>
+  </section>
+
+  <section id="v-plano" hidden>
+    <div class="secao-titulo"><h2>Em que ordem estudar</h2></div>
+    <p class="nota">Da matéria que cobre mais provas por hora investida para a que cobre menos. Marque o que já fechou — fica salvo neste navegador.</p>
+    <div id="plano"></div>
+  </section>
+
+  <section id="v-sinais" hidden>
+    <div class="secao-titulo"><h2>Sinais captados</h2></div>
+    <p class="nota">Notícias de autorização, contratação de banca e publicação de edital, varridas de segunda a sexta. É aqui que aparece o concurso que ainda não tem edital, mas ameaça abrir.</p>
+    <div class="sinais" id="sinais"></div>
+  </section>
+</main>
+
+<script>
+const CORES = {
+  INSCREVER:   ["var(--agora)", "var(--agora-fraco)"],
+  PREPARAR:    ["var(--prep)",  "var(--prep-fraco)"],
+  MONITORAR:   ["var(--mon)",   "var(--mon-fraco)"],
+  "REFERÊNCIA":["var(--ref)",   "var(--mon-fraco)"],
+};
+const FASE = { aberto:"ABERTO", iminente:"EDITAL", autorizado:"AUTORIZ.", previsto:"PREVISTO", posterior:"—" };
+const CHAVE = "radar-concursos-v1";
+
+let D = null, filtro = "acionaveis", abertos = new Set(), local = ler();
+
+function ler() { try { return JSON.parse(localStorage.getItem(CHAVE)) || {}; } catch { return {}; } }
+function gravar() { try { localStorage.setItem(CHAVE, JSON.stringify(local)); } catch {} }
+
+const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;" }[c]));
+const dec = (n) => String(n).replace('.', ',');
+const reais = (n) => n ? "R$ " + n.toLocaleString("pt-BR", { maximumFractionDigits: 0 }) : "—";
+
+async function api(rota, corpo) {
+  try {
+    const r = await fetch(rota, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(corpo) });
+    return r.ok ? await r.json() : null;
+  } catch { return null; }          // modo estático: o estado vive no navegador
+}
+
+async function carregar() {
+  const sel = Object.keys(local.decisoes || {}).filter((k) => local.decisoes[k] === "fazer");
+  const q = sel.length ? "?sel=" + encodeURIComponent(sel.join(",")) : "";
+  for (const url of ["/api/painel" + q, "dados.json"]) {
+    try {
+      const r = await fetch(url);
+      if (!r.ok) continue;
+      D = await r.json();
+      if (url === "dados.json" && sel.length) recalcularLocal(sel);
+      return pintar();
+    } catch {}
+  }
+  document.getElementById("lista").innerHTML = '<p class="vazio">Não consegui ler os dados. Rode <code>python app.py</code> na pasta do programa.</p>';
+}
+
+/* No modo estático (site publicado) o recorte por seleção é refeito aqui mesmo. */
+function recalcularLocal(sel) {
+  const escolhidos = D.concursos.filter((c) => sel.includes(c.id));
+  if (!escolhidos.length) return;
+  D.selecionados = sel;
+  const horas = (cod) => (D.disciplinas[cod]?.horas_base) || 0;
+  const vale = (cod) => !D.disciplinas[cod]?.nao_compartilhavel;
+
+  D.nucleo_comum = Object.entries(D.disciplinas).map(([cod, d]) => {
+    const alc = escolhidos.filter((c) => c.disciplinas.includes(cod)).map((c) => c.id);
+    return alc.length ? {
+      codigo: cod, nome: d.nome, eixo: d.eixo, horas: d.horas_base, alcance: alc.length,
+      cobertura_pct: Math.round(100 * alc.length / escolhidos.length), concursos: alc,
+      recorrencia: d.recorrencia ?? 0.5,
+      roi: +(alc.length / d.horas_base * 100).toFixed(1), ponte: !!d.ponte,
+      compartilhavel: !d.nao_compartilhavel, dica: d.dica || "", topicos: d.topicos || [],
+    } : null;
+  }).filter(Boolean).sort((a, b) => b.alcance - a.alcance || b.recorrencia - a.recorrencia || a.horas - b.horas);
+
+  const sob = (a, b) => {
+    const da = a.disciplinas.filter(vale), db = b.disciplinas.filter(vale);
+    const com = da.filter((x) => db.includes(x));
+    const hc = com.reduce((s, x) => s + horas(x), 0);
+    const ha = da.reduce((s, x) => s + horas(x), 0), hb = db.reduce((s, x) => s + horas(x), 0);
+    return (ha + hb) ? +(200 * hc / (ha + hb)).toFixed(1) : 0;
+  };
+  const cel = {};
+  escolhidos.forEach((a) => { cel[a.id] = {}; escolhidos.forEach((b) => { cel[a.id][b.id] = a.id === b.id ? 100 : sob(a, b); }); });
+  D.matriz = { ids: escolhidos.map((c) => c.id), celulas: cel };
+
+  let acc = 0; const vistos = new Set();
+  D.plano = { horas_semana: 15, etapas: [...D.nucleo_comum].sort((a, b) => b.alcance - a.alcance || b.recorrencia - a.recorrencia || a.horas - b.horas).map((e) => {
+    acc += e.horas; e.concursos.forEach((x) => vistos.add(x));
+    return { ...e, horas_acumuladas: acc, semanas_acumuladas: +(acc / 15).toFixed(1),
+             concursos_alcancados: vistos.size, pct_radar_coberto: Math.round(100 * vistos.size / escolhidos.length) };
+  }) };
+  D.plano.horas_total = acc; D.plano.semanas_total = +(acc / 15).toFixed(1);
+
+  const restam = [...escolhidos]; D.blocos = [];
+  while (restam.length) {
+    const s = restam.shift(); const mem = [s]; const resto = [];
+    restam.forEach((o) => (mem.every((m) => sob(m, o) >= 76) ? mem.push(o) : resto.push(o)));
+    restam.length = 0; restam.push(...resto);
+    const comuns = mem.map((m) => new Set(m.disciplinas)).reduce((a, b) => new Set([...a].filter((x) => b.has(x))));
+    const uniao = new Set(mem.flatMap((m) => m.disciplinas));
+    const ec = [...comuns].some((c) => c.startsWith("EC_"));
+    const nome = comuns.has("EC_SAN") && comuns.has("EC_HID") ? "Água, saneamento e meio ambiente"
+      : comuns.has("EC_TRA") ? "Infraestrutura e transportes"
+      : comuns.has("EC_ORC") && comuns.has("EC_EXE") ? "Obras públicas e fiscalização"
+      : ec ? "Engenharia civil — base comum" : "Administrativo e gestão pública";
+    D.blocos.push({ nome, resumo: "", ancora: s.orgao, quantidade: mem.length,
+      membros: mem.map((m) => ({ id: m.id, orgao: m.orgao, cargo: m.cargo, score: m.score, acao: m.acao })),
+      disciplinas_comuns: [...comuns],
+      horas_comuns: [...comuns].reduce((a, c) => a + horas(c), 0),
+      horas_total_bloco: [...uniao].reduce((a, c) => a + horas(c), 0) });
+  }
+  D.blocos.sort((a, b) => b.quantidade - a.quantidade || b.horas_comuns - a.horas_comuns);
+}
+
+/* ------------------------------------------------------------- pintura */
+function pintar() {
+  const dec = { ...(D.decisoes || {}), ...(local.decisoes || {}) };
+  D.decisoes = dec;
+
+  const acio = D.concursos.filter((c) => c.acionavel);
+  const agora = acio.filter((c) => c.acao === "INSCREVER" || c.urgente);
+  const feitos = Object.values(dec).filter((v) => v === "fazer").length;
+  const raio = D.raio_confortavel_km || 45;
+  document.getElementById("base").textContent = "· " + (D.base_label || "");
+  document.getElementById("resumo").innerHTML =
+    `<span><b>${acio.length}</b> no radar</span>` +
+    `<span><b>${agora.length}</b> pedem ação</span>` +
+    `<span><b>${feitos}</b> aceitos</span>` +
+    `<span style="color:var(--tinta-3)">${D.agenda?.roda_hoje ? "rastreando" : "pausa de fim de semana"}</span>`;
+
+  pintarFiltros(); pintarLista(); pintarNucleo(); pintarMatriz(); pintarBlocos(); pintarPlano(); pintarSinais();
+}
+
+function pintarFiltros() {
+  const opcoes = [
+    ["acionaveis", "No radar"],
+    ["agora", "Pedem ação"],
+    ["perto", `Até ${D.raio_confortavel_km || 45} km`],
+    ["engenharia", "Engenharia civil"],
+    ["aceitos", "Aceitos"],
+    ["tudo", "Tudo"],
+  ];
+  document.getElementById("filtros").innerHTML = opcoes
+    .map(([k, r]) => `<button class="chip" data-f="${k}" aria-pressed="${filtro === k}">${r}</button>`).join("");
+}
+
+function filtrar(c) {
+  const dec = D.decisoes[c.id];
+  if (dec === "descartar" && filtro !== "tudo") return false;
+  switch (filtro) {
+    case "agora": return c.acionavel && (c.acao === "INSCREVER" || c.urgente);
+    case "perto": return c.acionavel && c.km !== null && c.km <= (D.raio_confortavel_km || 45);
+    case "engenharia": return c.acionavel && c.trilha === "T1";
+    case "aceitos": return dec === "fazer";
+    case "tudo": return true;
+    default: return c.acionavel;
+  }
+}
+
+function pintarLista() {
+  const itens = D.concursos.filter(filtrar);
+  const alvo = document.getElementById("lista");
+  if (!itens.length) { alvo.innerHTML = '<p class="vazio">Nada neste filtro.</p>'; return; }
+
+  alvo.innerHTML = itens.map((c) => {
+    const [cor, fraca] = CORES[c.acao] || CORES.MONITORAR;
+    const dec = D.decisoes[c.id];
+    const aberto = abertos.has(c.id);
+    const vagas = c.vagas_cargo || c.vagas_total;
+    return `
+    <article class="card ${dec === "fazer" ? "escolhido" : ""} ${dec === "descartar" ? "apagado" : ""}"
+             style="--cor:${cor};--cor-fraca:${fraca}">
+      <div class="card-topo">
+        <div class="card-id">
+          <div class="card-orgao">${esc(c.orgao)}</div>
+          <div class="card-cargo">${esc(c.cargo)}</div>
+        </div>
+        <span class="acao">${c.acao}</span>
+        <div class="pontos">
+          <div class="n">${c.score.toFixed(0)}</div>
+          <div class="barra"><i style="width:${Math.min(c.score, 100)}%"></i></div>
+        </div>
+      </div>
+      <div class="fatos">
+        <span>${c.km !== null ? `<b>${c.km}</b> km` : "distância n/d"}</span>
+        <span>${vagas ? `<b>${vagas}</b> vagas` : "vagas a definir"}</span>
+        <span><b>${reais(c.salario)}</b></span>
+        <span>${esc(D.status_legenda?.[c.status] || c.status)}</span>
+        ${c.confianca === "estimado" ? '<span style="color:var(--tinta-3)">projeção, sem edital</span>' : ""}
+      </div>
+      ${c.urgente ? `<div class="aviso">Inscrições encerram em ${c.dias_para_fechar} dia${c.dias_para_fechar === 1 ? "" : "s"} — ${c.inscricao_ate.split("-").reverse().join("/")}.</div>` : ""}
+      <div class="acoes">
+        <button class="bt ${dec === "fazer" ? "marcado" : "forte"}" data-dec="fazer" data-id="${c.id}">
+          ${dec === "fazer" ? "✓ Vou fazer" : "Vou fazer"}
+        </button>
+        <button class="bt" data-dec="descartar" data-id="${c.id}">${dec === "descartar" ? "Descartado" : "Descartar"}</button>
+        <button class="bt" data-abrir="${c.id}">${aberto ? "Fechar" : "Por que esta nota"}</button>
+        ${c.fonte ? `<a class="bt" href="${esc(c.fonte)}" target="_blank" rel="noopener">Fonte</a>` : ""}
+      </div>
+      ${aberto ? detalhe(c) : ""}
+    </article>`;
+  }).join("");
+}
+
+function detalhe(c) {
+  const e = c.explicacao, k = c.componentes;
+  const mx = c.maximos || D.pesos_max || { aderencia: 35, proximidade: 25, chance: 20, retorno: 10, janela: 10 };
+  const linha = (rot, pts, max, txt) => `<dt>${rot}</dt><dd><b>${pts}</b>/${max} · ${esc(txt)}</dd>`;
+  return `<div class="detalhe">
+    <dl class="porque">
+      ${linha("Aderência", k.aderencia, mx.aderencia, e.aderencia)}
+      ${linha("Proximidade", k.proximidade, mx.proximidade, e.proximidade)}
+      ${linha("Chance", k.chance, mx.chance, e.chance)}
+      ${linha("Retorno", k.retorno, mx.retorno, e.retorno)}
+      ${linha("Janela", k.janela, mx.janela, e.janela)}
+    </dl>
+    ${c.observacao ? `<p class="obs">${esc(c.observacao)}</p>` : ""}
+    <div class="etiqueta" style="margin-bottom:6px">O que cai nesta prova</div>
+    <div class="discs">${(c.disciplinas || []).map((d) =>
+      `<span class="disc ${d.startsWith("EC_") ? "tec" : ""}">${esc(D.disciplinas[d]?.nome || d)}</span>`).join("")}</div>
+  </div>`;
+}
+
+function pintarNucleo() {
+  const n = D.nucleo_comum || [];
+  if (!n.length) { document.getElementById("nucleo").innerHTML = '<p class="vazio">Aceite ao menos um concurso na aba Decidir.</p>'; return; }
+  const total = (D.selecionados || []).length || 1;
+  document.getElementById("nucleo").innerHTML = n.map((d) => {
+    const pct = Math.max(100 * d.alcance / total, 7);
+    const cls = d.eixo === "basico" || d.eixo === "juridico" ? "base" : (!d.compartilhavel ? "local" : "");
+    return `<div class="linha-n">
+      <div class="n-nome">
+        <span>${esc(d.nome)}</span>
+        ${d.ponte ? '<span class="medalha">PONTE</span>' : ""}
+        ${!d.compartilhavel ? '<span class="medalha" style="background:var(--mon-fraco);color:var(--tinta-3)">SÓ LOCAL</span>' : ""}
+      </div>
+      <div class="n-horas">${d.horas}h</div>
+      <div class="n-trilho" style="grid-column:1/-1">
+        <div class="n-preench ${cls}" style="width:${pct}%">${d.alcance} de ${total}</div>
+      </div>
+    </div>`;
+  }).join("");
+}
+
+function pintarMatriz() {
+  const m = D.matriz;
+  const tab = document.getElementById("matriz");
+  if (!m || m.ids.length < 2) { document.getElementById("matriz-caixa").innerHTML = '<p class="vazio">Aceite dois ou mais concursos para comparar.</p>'; return; }
+  const curto = (id) => {
+    const c = D.concursos.find((x) => x.id === id) || {};
+    return (c.orgao || id).replace(/^Prefeitura (Municipal )?(de |do )?/i, "").split("—")[0].trim().slice(0, 22);
+  };
+  const tom = (v) => {
+    if (v >= 90) return ["color-mix(in srgb, var(--azul) 88%, transparent)", "#fff"];
+    if (v >= 80) return ["color-mix(in srgb, var(--azul) 62%, transparent)", "#fff"];
+    if (v >= 70) return ["color-mix(in srgb, var(--azul) 38%, transparent)", "var(--tinta)"];
+    if (v >= 60) return ["color-mix(in srgb, var(--azul) 20%, transparent)", "var(--tinta)"];
+    return ["transparent", "var(--tinta-3)"];
+  };
+  const cab = `<tr><th class="lado"></th>${m.ids.map((i) => `<th class="topo-col"><div>${esc(curto(i))}</div></th>`).join("")}</tr>`;
+  const corpo = m.ids.map((a) => `<tr><th class="lado">${esc(curto(a))}</th>${m.ids.map((b) => {
+    const v = m.celulas[a][b];
+    if (a === b) return '<td class="cel eu">—</td>';
+    const [bg, fg] = tom(v);
+    return `<td class="cel" style="background:${bg};color:${fg}" title="${esc(curto(a))} × ${esc(curto(b))}: ${v}% em comum">${Math.round(v)}</td>`;
+  }).join("")}</tr>`).join("");
+  tab.innerHTML = cab + corpo;
+}
+
+function pintarBlocos() {
+  const b = D.blocos || [];
+  document.getElementById("blocos").innerHTML = b.length
+    ? b.map((g) => `<div class="bloco">
+        <h3>${esc(g.nome)}</h3>
+        <p class="resumo-b">${g.quantidade === 1 ? "Sozinho — conteúdo próprio demais para emparelhar." : `${g.quantidade} concursos com o mesmo miolo.`}</p>
+        <ol>${g.membros.map((m) => `<li>${esc(m.orgao.split("—")[0].trim())} <small>· ${esc(m.acao)}</small></li>`).join("")}</ol>
+        <div class="rodape"><b>${g.horas_comuns}h</b> em comum de ${g.horas_total_bloco}h no bloco</div>
+      </div>`).join("")
+    : '<p class="vazio">Aceite alguns concursos para ver os blocos.</p>';
+}
+
+function pintarPlano() {
+  const p = D.plano;
+  const alvo = document.getElementById("plano");
+  if (!p || !p.etapas?.length) { alvo.innerHTML = '<p class="vazio">Aceite ao menos um concurso na aba Decidir.</p>'; return; }
+  const prog = local.progresso || {};
+  const feito = p.etapas.filter((e) => prog[e.codigo] === "feito");
+  const hFeitas = feito.reduce((s, e) => s + e.horas, 0);
+
+  alvo.innerHTML = `<p class="nota" style="margin-bottom:16px">
+      <b class="mono">${p.horas_total}h</b> no total — cerca de <b class="mono">${dec(p.semanas_total)}</b> semanas a 15h por semana.
+      Você já fechou <b class="mono">${hFeitas}h</b> (${Math.round(100 * hFeitas / p.horas_total)}%).
+    </p>` + p.etapas.map((e, i) => {
+    const ok = prog[e.codigo] === "feito";
+    const ab = abertos.has("t:" + e.codigo);
+    return `<div class="etapa ${ok ? "feito" : ""}">
+      <button class="etapa-cab" data-top="${e.codigo}">
+        <span class="caixa" data-feito="${e.codigo}">✓</span>
+        <span>
+          <span class="e-nome">${i + 1}. ${esc(e.nome)}</span>
+          <span class="e-sub">cobre ${e.alcance} concurso${e.alcance === 1 ? "" : "s"} · ao chegar aqui você terá ${e.pct_radar_coberto}% do radar coberto</span>
+        </span>
+        <span class="e-dir"><b>${e.horas}h</b>${dec(e.semanas_acumuladas)} sem.</span>
+      </button>
+      ${ab ? `<div class="topicos">
+        ${e.dica ? `<div class="dica">${esc(e.dica)}</div>` : ""}
+        <ul>${e.topicos.map((t) => `<li>${esc(t)}</li>`).join("")}</ul>
+      </div>` : ""}
+    </div>`;
+  }).join("");
+}
+
+function pintarSinais() {
+  const s = D.sinais || [];
+  document.getElementById("sinais").innerHTML = s.length
+    ? s.map((x) => {
+        const cor = x.status === "aberto" ? CORES.INSCREVER : x.status === "iminente" ? CORES.PREPARAR : CORES.MONITORAR;
+        return `<div class="sinal">
+          <span class="fase" style="--cor:${cor[0]};--cor-fraca:${cor[1]}">${FASE[x.status] || "SINAL"}</span>
+          <span>${x.link ? `<a href="${esc(x.link)}" target="_blank" rel="noopener">${esc(x.titulo)}</a>` : esc(x.titulo)}</span>
+          <span class="quando">${x.publicado_em ? x.publicado_em.split("-").reverse().slice(0, 2).join("/") : ""}</span>
+        </div>`;
+      }).join("")
+    : '<p class="vazio">Nenhum sinal gravado ainda. Rode <code>python app.py rastrear</code> para varrer as fontes.</p>';
+}
+
+/* --------------------------------------------------------------- eventos */
+document.addEventListener("click", async (ev) => {
+  const t = ev.target.closest("[data-vista],[data-f],[data-dec],[data-abrir],[data-top],[data-feito]");
+  if (!t) return;
+
+  if (t.dataset.vista) {
+    document.querySelectorAll(".aba").forEach((a) => a.setAttribute("aria-selected", a === t));
+    ["radar", "conteudo", "plano", "sinais"].forEach((v) => { document.getElementById("v-" + v).hidden = v !== t.dataset.vista; });
+    window.scrollTo({ top: 0, behavior: "instant" });
+    return;
+  }
+  if (t.dataset.f) { filtro = t.dataset.f; pintarFiltros(); pintarLista(); return; }
+
+  if (t.dataset.dec) {
+    const id = t.dataset.id, novo = D.decisoes[id] === t.dataset.dec ? "" : t.dataset.dec;
+    local.decisoes = local.decisoes || {};
+    if (novo) local.decisoes[id] = novo; else delete local.decisoes[id];
+    gravar();
+    await api("/api/decisao", { id, decisao: novo || "indefinido" });
+    return carregar();
+  }
+  if (t.dataset.abrir) {
+    abertos.has(t.dataset.abrir) ? abertos.delete(t.dataset.abrir) : abertos.add(t.dataset.abrir);
+    return pintarLista();
+  }
+  if (t.dataset.feito) {
+    ev.stopPropagation();
+    const cod = t.dataset.feito;
+    local.progresso = local.progresso || {};
+    const novo = local.progresso[cod] === "feito" ? "pendente" : "feito";
+    local.progresso[cod] = novo; gravar();
+    api("/api/progresso", { disciplina: cod, situacao: novo });
+    return pintarPlano();
+  }
+  if (t.dataset.top) {
+    const k = "t:" + t.dataset.top;
+    abertos.has(k) ? abertos.delete(k) : abertos.add(k);
+    return pintarPlano();
+  }
+});
+
+carregar();
+</script>
