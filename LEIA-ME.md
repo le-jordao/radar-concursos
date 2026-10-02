@@ -1,8 +1,8 @@
 # Radar de Concursos
 
-Rastreia editais que vão abrir ou que ameaçam abrir perto de Cabo Frio, pontua cada um
-pelo seu perfil (engenheiro civil, ex-SEME), mostra o conteúdo que os concursos têm em
-comum e monta a ordem de estudo.
+Rastreia editais que vão abrir ou que ameaçam abrir perto de São Pedro da Aldeia,
+pontua cada um pelo seu perfil (engenheiro civil, ex-SEME), mostra o conteúdo que os
+concursos têm em comum e monta a ordem de estudo.
 
 Não precisa instalar nada além do Python. Nenhuma biblioteca externa.
 
@@ -18,8 +18,10 @@ não só no agendador. `Desagendar.bat` desliga.
 ## As quatro abas
 
 **Decidir** — todos os concursos ordenados por nota de 0 a 100. A nota soma cinco
-coisas: aderência ao seu perfil (35), proximidade de Cabo Frio (25), chance de passar
-(20), salário (10) e quão perto está de abrir (10). O botão *Por que esta nota* abre a
+coisas: proximidade de São Pedro da Aldeia (35), aderência ao seu perfil (30), chance
+de passar (15), salário (10) e quão perto está de abrir (10). Proximidade é o maior
+peso porque deslocamento é a sua restrição principal — para mudar isso, edite
+`pesos` em `dados/perfil.json`. O botão *Por que esta nota* abre a
 conta item por item, para você discordar com argumento.
 
 Marque **Vou fazer** nos que aceitar. As outras abas passam a considerar só esses.
@@ -72,10 +74,25 @@ Tudo que define o comportamento está em `dados/`, em arquivos de texto:
   antecipado e não de fato.
 - **`disciplinas.json`** — o conteúdo programático e quantas horas cada matéria pede.
   É o que alimenta a matriz e o plano.
-- **`municipios.json`** — distâncias a partir de Cabo Frio.
+- **`municipios.json`** — distâncias rodoviárias a partir de São Pedro da Aldeia.
 
 `dados/radar.db` guarda os sinais capturados e as suas decisões. Apagar esse arquivo
 zera o histórico, sem afetar o resto.
+
+## Onde seus dados ficam
+
+O programa **não acessa GPS nem qualquer sensor de localização**. A base é o município
+que está escrito em `dados/perfil.json`, e as distâncias saem de uma tabela local.
+Nenhuma posição sua vai para a rede.
+
+O comando `exportar` gera a versão estática para hospedar, e ela sai filtrada: não leva
+`perfil.json` (experiência, exclusões, salário mínimo, trilhas) e troca o município-base
+pelo rótulo de região. Quem abrir a página publicada vê "Região dos Lagos", não o seu
+município.
+
+`dados/radar.db` (sinais e decisões) e `web/dados.json` (export) estão no `.gitignore` —
+não sobem para o repositório. `perfil.json` sobe, porque o programa precisa dele; o
+repositório é privado.
 
 ## Os limites, ditos claramente
 
