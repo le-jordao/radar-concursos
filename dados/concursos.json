@@ -2,12 +2,12 @@
   "_nota": "Base inicial do radar, levantada em 02/10/2026. O comando 'rastrear' atualiza e acrescenta itens automaticamente a partir das fontes. Campo 'confianca': 'confirmado' = há fonte pública citada; 'estimado' = projeção por ciclo histórico do órgão, serve de alerta antecipado.",
   "atualizado_em": "2026-10-02",
   "status_legenda": {
-    "aberto": "Inscrições abertas agora",
-    "iminente": "Edital publicado ou banca contratada — abre em semanas",
-    "autorizado": "Autorizado pelo governo / comissão formada — abre em meses",
-    "previsto": "Previsto ou solicitado — sem data",
-    "andamento": "Inscrições encerradas, prova ainda por vir",
-    "encerrado": "Ciclo concluído — mantido como referência de banca e conteúdo"
+    "aberto": "Inscrições abertas",
+    "iminente": "Edital publicado ou banca contratada",
+    "autorizado": "Autorizado / comissão formada",
+    "previsto": "Previsto ou solicitado",
+    "andamento": "Inscrições encerradas, prova por vir",
+    "encerrado": "Ciclo concluído — referência"
   },
   "concursos": [
     {
@@ -41,7 +41,13 @@
         "EC_HID",
         "EC_GEO",
         "EC_URB"
-      ]
+      ],
+      "historico": [
+        "2013"
+      ],
+      "fonte_historico": "ultimo concurso em 2013 - autorizacao de 2026 noticiada como \"apos 13 anos\"",
+      "lotacao_escolhivel": false,
+      "lotacao_km": null
     },
     {
       "id": "cedae-rj",
@@ -54,14 +60,14 @@
       "vagas_total": null,
       "vagas_cargo": null,
       "salario": 6500.0,
-      "status": "previsto",
+      "status": "autorizado",
       "confianca": "confirmado",
       "banca": null,
-      "janela_edital": "2027",
+      "janela_edital": "2026-2027",
       "inscricao_ate": null,
       "data_prova": null,
-      "fonte": "https://concursos.estrategia.com/portal/concursos-rj/",
-      "observacao": "Listado como previsto. Conteúdo quase idêntico ao do INEA no eixo água/saneamento — estudar os dois em bloco.",
+      "fonte": "https://folha.qconcursos.com/n/concurso-cedae-2026-previsa-edital-este-ano",
+      "observacao": "A companhia confirmou estudos para novo edital e trabalha para publicar em 2026, se o Governo do Estado autorizar. Sem concurso desde 2012 (Ceperj, 62 vagas). O plano de cargos esta sendo revisto antes do edital.",
       "disciplinas": [
         "LP",
         "RLM",
@@ -73,7 +79,13 @@
         "EC_ORC",
         "EC_EXE",
         "EC_MAT"
-      ]
+      ],
+      "historico": [
+        "2012"
+      ],
+      "fonte_historico": "ultimo concurso em 2012, Fundacao Ceperj, 62 vagas",
+      "lotacao_escolhivel": false,
+      "lotacao_km": null
     },
     {
       "id": "der-rj",
@@ -86,14 +98,14 @@
       "vagas_total": null,
       "vagas_cargo": null,
       "salario": 10189.49,
-      "status": "previsto",
+      "status": "autorizado",
       "confianca": "confirmado",
       "banca": null,
       "janela_edital": "2027",
       "inscricao_ate": null,
       "data_prova": null,
-      "fonte": "https://concursos.estrategia.com/portal/concursos-rj/",
-      "observacao": "Grupo de trabalho formado. Melhor salário do radar estadual para engenharia. Exige o eixo de estradas/pavimentação, que é específico.",
+      "fonte": "https://www.estrategiaconcursos.com.br/blog/concurso-der-rj/",
+      "observacao": "Grupo de trabalho formado em 08/04/2026. Sem concurso desde 2009 - 17 anos, o maior atraso do radar. No edital de 2009 foram 57 vagas, das quais 25 de Engenheiro Civil, com apenas 653 inscritos no total: historicamente e a melhor relacao vaga/candidato que existe para a sua formacao.",
       "disciplinas": [
         "LP",
         "RLM",
@@ -107,7 +119,13 @@
         "EC_EXE",
         "EC_TOP",
         "EC_EST"
-      ]
+      ],
+      "historico": [
+        "2009"
+      ],
+      "fonte_historico": "ultimo concurso em 2009, Ceperj, 57 vagas (25 de Engenheiro Civil)",
+      "lotacao_escolhivel": false,
+      "lotacao_km": null
     },
     {
       "id": "pref-cabo-frio",
@@ -144,7 +162,14 @@
         "EC_INST",
         "EC_SEG",
         "EC_TOP"
-      ]
+      ],
+      "historico": [
+        "2009",
+        "2020"
+      ],
+      "fonte_historico": "pciconcursos / portal da transparencia de Cabo Frio",
+      "lotacao_escolhivel": false,
+      "lotacao_km": null
     },
     {
       "id": "pref-araruama",
@@ -157,14 +182,14 @@
       "vagas_total": null,
       "vagas_cargo": null,
       "salario": 4200.0,
-      "status": "previsto",
-      "confianca": "estimado",
+      "status": "autorizado",
+      "confianca": "confirmado",
       "banca": null,
-      "janela_edital": "2027",
+      "janela_edital": "2026-2027",
       "inscricao_ate": null,
       "data_prova": null,
-      "fonte": "https://www.acheconcursos.com.br/concursos-rio-de-janeiro",
-      "observacao": "40 km de Cabo Frio. Município com quadro técnico defasado; concurso geral é esperado no ciclo pós-eleitoral.",
+      "fonte": "https://www.estrategiaconcursos.com.br/blog/concurso-prefeitura-de-araruama-rj/",
+      "observacao": "Comissao organizadora instituida em 19/02/2026 - o processo esta andando. Ultimo concurso foi em 2019 (banca INCP, 1.818 vagas imediatas mais cadastro reserva). A 25 km de casa: e o alvo serio mais proximo depois de Cabo Frio.",
       "disciplinas": [
         "LP",
         "RLM",
@@ -178,7 +203,13 @@
         "EC_URB",
         "EC_INST",
         "EC_SEG"
-      ]
+      ],
+      "historico": [
+        "2019"
+      ],
+      "fonte_historico": "edital INCP 2019, 1.818 vagas",
+      "lotacao_escolhivel": false,
+      "lotacao_km": null
     },
     {
       "id": "pref-sao-pedro-aldeia",
@@ -208,7 +239,13 @@
         "DIR_CONST",
         "DIR_ADM",
         "GEST_PUB"
-      ]
+      ],
+      "historico": [
+        "2026"
+      ],
+      "fonte_historico": "processo seletivo 2026",
+      "lotacao_escolhivel": false,
+      "lotacao_km": null
     },
     {
       "id": "pref-buzios",
@@ -239,7 +276,13 @@
         "EC_URB",
         "EC_EXE",
         "EC_ORC"
-      ]
+      ],
+      "historico": [
+        "2026"
+      ],
+      "fonte_historico": "edital 01/2026 (Educacao), banca IBAM",
+      "lotacao_escolhivel": false,
+      "lotacao_km": null
     },
     {
       "id": "pref-saquarema",
@@ -268,7 +311,13 @@
         "ETICA",
         "DIR_ADM",
         "GEST_PUB"
-      ]
+      ],
+      "historico": [
+        "2026"
+      ],
+      "fonte_historico": "edital 2026, 1.268 vagas (Educacao)",
+      "lotacao_escolhivel": false,
+      "lotacao_km": null
     },
     {
       "id": "camara-saquarema",
@@ -298,7 +347,13 @@
         "DIR_CONST",
         "DIR_ADM",
         "GEST_PUB"
-      ]
+      ],
+      "historico": [
+        "2026"
+      ],
+      "fonte_historico": "edital 2026, 28 vagas",
+      "lotacao_escolhivel": false,
+      "lotacao_km": null
     },
     {
       "id": "pref-arraial",
@@ -324,7 +379,14 @@
         "RLM",
         "LOCAL",
         "ATU"
-      ]
+      ],
+      "historico": [
+        "2025",
+        "2026"
+      ],
+      "fonte_historico": "edital 01/2025 e processo seletivo 2026",
+      "lotacao_escolhivel": false,
+      "lotacao_km": null
     },
     {
       "id": "pref-rio-das-ostras",
@@ -353,7 +415,13 @@
         "ETICA",
         "GEST_PUB",
         "ESP_POL"
-      ]
+      ],
+      "historico": [
+        "2026"
+      ],
+      "fonte_historico": "processo seletivo 2026",
+      "lotacao_escolhivel": false,
+      "lotacao_km": null
     },
     {
       "id": "pref-macae",
@@ -390,7 +458,13 @@
         "EC_HID",
         "EC_URB",
         "EC_SEG"
-      ]
+      ],
+      "historico": [
+        "2026"
+      ],
+      "fonte_historico": "edital 01/2026, banca FGV",
+      "lotacao_escolhivel": false,
+      "lotacao_km": null
     },
     {
       "id": "pref-iguaba",
@@ -420,7 +494,10 @@
         "DIR_ADM",
         "EC_URB",
         "EC_EXE"
-      ]
+      ],
+      "historico": [],
+      "lotacao_escolhivel": false,
+      "lotacao_km": null
     },
     {
       "id": "uff-tae",
@@ -456,7 +533,10 @@
         "EC_INST",
         "EC_SEG",
         "EC_DES"
-      ]
+      ],
+      "historico": [],
+      "lotacao_escolhivel": false,
+      "lotacao_km": null
     },
     {
       "id": "uerj",
@@ -484,7 +564,10 @@
         "DIR_ADM",
         "ETICA",
         "GEST_PUB"
-      ]
+      ],
+      "historico": [],
+      "lotacao_escolhivel": false,
+      "lotacao_km": null
     },
     {
       "id": "agetransp",
@@ -515,7 +598,10 @@
         "ORC_PUB",
         "EC_TRA",
         "EC_ORC"
-      ]
+      ],
+      "historico": [],
+      "lotacao_escolhivel": false,
+      "lotacao_km": null
     },
     {
       "id": "tce-rj",
@@ -548,7 +634,10 @@
         "EC_ORC",
         "EC_EXE",
         "EC_EST"
-      ]
+      ],
+      "historico": [],
+      "lotacao_escolhivel": false,
+      "lotacao_km": null
     },
     {
       "id": "pref-petropolis",
@@ -581,7 +670,10 @@
         "EC_ORC",
         "EC_EXE",
         "EC_URB"
-      ]
+      ],
+      "historico": [],
+      "lotacao_escolhivel": false,
+      "lotacao_km": null
     },
     {
       "id": "pref-paulo-frontin",
@@ -618,7 +710,13 @@
         "EC_URB",
         "EC_SEG",
         "EC_TOP"
-      ]
+      ],
+      "historico": [
+        "2026"
+      ],
+      "fonte_historico": "concurso 01/2026, Instituto ACCESS",
+      "lotacao_escolhivel": false,
+      "lotacao_km": null
     },
     {
       "id": "dnit",
@@ -653,7 +751,10 @@
         "EC_EXE",
         "EC_EST",
         "EC_TOP"
-      ]
+      ],
+      "historico": [],
+      "lotacao_escolhivel": false,
+      "lotacao_km": null
     },
     {
       "id": "inmetro",
@@ -685,7 +786,10 @@
         "EC_MAT",
         "EC_EST",
         "EC_SEG"
-      ]
+      ],
+      "historico": [],
+      "lotacao_escolhivel": false,
+      "lotacao_km": null
     },
     {
       "id": "iss-niteroi",
@@ -716,7 +820,241 @@
         "ORC_PUB",
         "ETICA",
         "EC_URB"
+      ],
+      "historico": [],
+      "lotacao_escolhivel": false,
+      "lotacao_km": null
+    },
+    {
+      "id": "inss",
+      "orgao": "INSS — Instituto Nacional do Seguro Social",
+      "esfera": "federal",
+      "local_prova": "Rio de Janeiro",
+      "lotacao_escolhivel": true,
+      "lotacao_km": 15,
+      "cargo": "Técnico do Seguro Social (médio) / Analista (superior)",
+      "trilha": "T3",
+      "nivel": "medio",
+      "vagas_total": 10000,
+      "vagas_cargo": 8501,
+      "salario": 6402.76,
+      "status": "previsto",
+      "confianca": "confirmado",
+      "banca": null,
+      "janela_edital": "2027",
+      "janela_declarada": "2027",
+      "inscricao_ate": null,
+      "data_prova": null,
+      "historico": [
+        "2008",
+        "2015",
+        "2022"
+      ],
+      "fonte_historico": "concursos de 2008, 2015 e 2022 — ciclo de 7 anos",
+      "fonte": "https://folha.qconcursos.com/n/concurso-inss",
+      "observacao": "Pedido de 10 mil vagas no planejamento de 2027 (8.501 de Técnico, nível médio, e 1.499 de Analista), mais um pedido emergencial de 2 mil. Técnico paga R$ 6.402,76 para nível médio — é o melhor salário por hora de estudo do radar inteiro. E tem agência do INSS em Cabo Frio e São Pedro da Aldeia, então dá para pedir lotação perto de casa.",
+      "disciplinas": [
+        "LP",
+        "RLM",
+        "INFO",
+        "DIR_CONST",
+        "DIR_ADM",
+        "ETICA",
+        "GEST_PUB"
+      ]
+    },
+    {
+      "id": "correios",
+      "orgao": "Correios",
+      "esfera": "federal",
+      "local_prova": "Rio de Janeiro",
+      "lotacao_escolhivel": true,
+      "lotacao_km": 15,
+      "cargo": "Analista — Engenharia Civil / Carteiro",
+      "trilha": "T1",
+      "nivel": "superior",
+      "vagas_total": 3511,
+      "vagas_cargo": 412,
+      "salario": 6872.48,
+      "status": "previsto",
+      "confianca": "confirmado",
+      "banca": null,
+      "janela_edital": "2027",
+      "janela_declarada": "2027",
+      "inscricao_ate": null,
+      "data_prova": null,
+      "historico": [
+        "2011",
+        "2024"
+      ],
+      "fonte_historico": "concursos de 2011 e 2024 — ciclo de 13 anos",
+      "fonte": "https://www.estrategiaconcursos.com.br/blog/concurso-correios/",
+      "observacao": "O edital de 2024 (3.511 vagas) vale até 14/04/2027 e as convocações foram empurradas para 2027 por aperto orçamentário — ou seja, as inscrições estão fechadas, mas a fila ainda anda. Novo edital só depois disso. Analista de nível superior paga R$ 6.872,48 e tem vaga de engenharia; há unidade dos Correios na Região dos Lagos.",
+      "disciplinas": [
+        "LP",
+        "RLM",
+        "INFO",
+        "DIR_ADM",
+        "ETICA",
+        "EC_MAT",
+        "EC_EST",
+        "EC_ORC",
+        "EC_EXE",
+        "EC_INST",
+        "EC_SEG"
+      ]
+    },
+    {
+      "id": "banco-do-brasil",
+      "orgao": "Banco do Brasil",
+      "esfera": "federal",
+      "local_prova": "Rio de Janeiro",
+      "lotacao_escolhivel": true,
+      "lotacao_km": 15,
+      "cargo": "Escriturário — Agente Comercial",
+      "trilha": "T3",
+      "nivel": "medio",
+      "vagas_total": null,
+      "vagas_cargo": null,
+      "salario": 4314.69,
+      "status": "previsto",
+      "confianca": "confirmado",
+      "banca": null,
+      "janela_edital": "2027",
+      "janela_declarada": "2027",
+      "inscricao_ate": null,
+      "data_prova": null,
+      "historico": [
+        "2021",
+        "2023"
+      ],
+      "fonte_historico": "concursos de 2021 e 2023 — ciclo curto, de 2 anos",
+      "fonte": "https://www.direcaoconcursos.com.br/noticias/concurso-banco-do-brasil-nao-tera-edital-em-2026",
+      "observacao": "O banco confirmou que não há edital em 2026 por causa do período eleitoral; a expectativa é 2027. Base de R$ 4.314,69, mas com benefícios a remuneração passa de R$ 6.400. Prova de escriturário é curta e sem conteúdo técnico, e há agência em Cabo Frio e São Pedro da Aldeia. Ciclo histórico curto: é o concurso que mais se repete do radar.",
+      "disciplinas": [
+        "LP",
+        "RLM",
+        "INFO",
+        "ATU",
+        "GEST_PUB"
+      ]
+    },
+    {
+      "id": "caixa",
+      "orgao": "Caixa Econômica Federal",
+      "esfera": "federal",
+      "local_prova": "Rio de Janeiro",
+      "lotacao_escolhivel": true,
+      "lotacao_km": 15,
+      "cargo": "Técnico Bancário",
+      "trilha": "T3",
+      "nivel": "medio",
+      "vagas_total": null,
+      "vagas_cargo": null,
+      "salario": 3762.0,
+      "status": "previsto",
+      "confianca": "confirmado",
+      "banca": null,
+      "janela_edital": "2027",
+      "inscricao_ate": null,
+      "data_prova": null,
+      "historico": [
+        "2014",
+        "2021",
+        "2024"
+      ],
+      "fonte_historico": "concursos de 2014, 2021 e 2024",
+      "fonte": "https://blog.grancursosonline.com.br/concursos-banco-do-brasil-e-caixa-expectativas-para-2025-e-2026/",
+      "observacao": "Em estudos para Técnico Bancário, nível médio, R$ 3.762,00 pelo último edital. Salário mais baixo da turma de bancos, mas o ciclo é curto e há agência perto de casa.",
+      "disciplinas": [
+        "LP",
+        "RLM",
+        "INFO",
+        "ATU",
+        "GEST_PUB"
+      ]
+    },
+    {
+      "id": "detran-rj",
+      "orgao": "DETRAN-RJ",
+      "esfera": "estadual",
+      "local_prova": "Rio de Janeiro",
+      "lotacao_escolhivel": true,
+      "lotacao_km": 15,
+      "cargo": "Técnico / Analista de Trânsito",
+      "trilha": "T3",
+      "nivel": "medio",
+      "vagas_total": null,
+      "vagas_cargo": null,
+      "salario": null,
+      "status": "autorizado",
+      "confianca": "confirmado",
+      "banca": null,
+      "janela_edital": "2027",
+      "inscricao_ate": null,
+      "data_prova": null,
+      "historico": [
+        "2013"
+      ],
+      "fonte_historico": "último concurso em 2013",
+      "fonte": "https://concursos.estrategia.com/portal/concursos-rj/",
+      "observacao": "Grupo de trabalho formado; cargos e salários ainda não definidos. Sem concurso desde 2013. O DETRAN tem posto em Cabo Frio e em São Pedro da Aldeia, então a lotação pode ser aqui.",
+      "disciplinas": [
+        "LP",
+        "RLM",
+        "INFO",
+        "DIR_CONST",
+        "DIR_ADM",
+        "ETICA",
+        "EC_TRA"
+      ]
+    },
+    {
+      "id": "bndes",
+      "orgao": "BNDES",
+      "esfera": "federal",
+      "local_prova": "Rio de Janeiro",
+      "lotacao_escolhivel": false,
+      "lotacao_km": 140,
+      "cargo": "Profissional Básico — Engenharia",
+      "trilha": "T1",
+      "nivel": "superior",
+      "vagas_total": null,
+      "vagas_cargo": null,
+      "salario": 20900.0,
+      "status": "previsto",
+      "confianca": "estimado",
+      "banca": null,
+      "janela_edital": "2027",
+      "inscricao_ate": null,
+      "data_prova": null,
+      "historico": [
+        "2012",
+        "2024"
+      ],
+      "fonte_historico": "concursos de 2012 e 2024 — projeção, confirmar antes de usar",
+      "fonte": "https://www.estrategiaconcursos.com.br/blog/concursos-federais/",
+      "observacao": "Sede no Rio, salário inicial perto de R$ 20,9 mil e vaga de engenharia. É o maior retorno financeiro do radar, mas a lotação é no centro do Rio — 140 km de casa, sem opção de pedir perto. E a concorrência é nacional. Entrada marcada como projeção: confirme antes de contar com ela.",
+      "disciplinas": [
+        "LP",
+        "RLM",
+        "INFO",
+        "DIR_CONST",
+        "DIR_ADM",
+        "LIC",
+        "ORC_PUB",
+        "EC_EST",
+        "EC_ORC",
+        "EC_EXE",
+        "EC_MAT"
       ]
     }
-  ]
+  ],
+  "ciclos_padrao_anos": {
+    "_nota": "Usado quando o orgao so tem UM edital registrado, sem intervalo para medir. Valores derivados dos ciclos observados no proprio radar: municipios da regiao giram perto de 9 anos; estaduais do RJ ficaram 13 a 17 anos sem concurso.",
+    "municipal": 9.0,
+    "estadual": 14.0,
+    "federal": 10.0
+  },
+  "_nota_lotacao": "lotacao_escolhivel: orgao com unidade na Regiao dos Lagos, onde o candidato pode pedir lotacao perto de casa. Nesses casos a proximidade e medida pela lotacao possivel (lotacao_km), nao pela cidade da prova - a prova e um dia, a lotacao e todo dia."
 }

@@ -17,7 +17,12 @@ não só no agendador. `Desagendar.bat` desliga.
 
 ## As quatro abas
 
-**Decidir** — todos os concursos ordenados por nota de 0 a 100. A nota soma cinco
+**Decidir** — todos os concursos ordenados por nota de 0 a 100.
+
+O controle **Escopo** corta o radar por distância, quilômetro a quilômetro. Puxe para 20 km
+e sobram só os de casa; solte e aparece tudo. O contador ao lado diz quantos restaram.
+O **Ordenar** troca o critério: nota, salário por hora de estudo, mais perto, sai mais cedo,
+maior salário. A nota soma cinco
 coisas: proximidade de São Pedro da Aldeia (35), aderência ao seu perfil (30), chance
 de passar (15), salário (10) e quão perto está de abrir (10). Proximidade é o maior
 peso porque deslocamento é a sua restrição principal — para mudar isso, edite
@@ -35,6 +40,41 @@ para outro.
 **Plano de estudo** — a ordem que rende mais: primeiro o que cobre mais provas e pesa
 mais na nota. Clique numa matéria para ver o conteúdo programático completo e a dica
 de abordagem. O que você marcar como feito fica salvo no navegador.
+
+### Previsão de quando o edital sai
+
+Todo concurso sem data recebe uma estimativa, por uma de três vias, nesta ordem:
+
+1. **Janela declarada pelo órgão** — quando o próprio órgão anunciou um alvo ("edital
+   ainda em 2026"). É a melhor evidência que existe.
+2. **Fase do processo** — comissão formada ou banca contratada significa edital em meses,
+   não em anos. Comissão formada vira uma janela de 3 a 14 meses.
+3. **Ciclo histórico** — o intervalo médio entre os editais anteriores daquele mesmo
+   órgão, somado à data do último. Com um só edital registrado, usa o ciclo típico da
+   esfera e a confiança cai para baixa.
+
+O caso mais útil é o **ciclo vencido**: DER-RJ sem concurso desde 2009, CEDAE desde 2012,
+INEA desde 2013. Atraso acumulado é o que costuma vir antes da autorização, então o
+programa trata isso como sinal de urgência e sobe a nota. O contrário também vale: Cabo
+Frio fez concurso em 2020 e tem ciclo de 11 anos, então a previsão é 2031 — e a nota cai
+por isso, mesmo sendo a 15 km.
+
+Abra *Por que esta nota* para ver a conta: último edital, ciclo medido, margem e quantos
+intervalos entraram no cálculo.
+
+### Salário por hora de estudo
+
+Cada concurso mostra quanto de salário ele paga por hora de estudo que o edital exige.
+É o critério que separa prova longa e mal paga de prova curta e bem paga. O INSS é o
+exemplo claro: Técnico é nível médio, sem conteúdo técnico de engenharia, e paga mais
+que muita vaga de engenheiro municipal.
+
+### Lotação escolhível
+
+Correios, INSS, Banco do Brasil, Caixa e Detran têm unidade na Região dos Lagos. Nesses
+casos a prova é no Rio, mas a lotação pode ser aqui — e o programa pontua pela lotação,
+não pela cidade da prova. A prova é um dia; a lotação é todo dia. Esses concursos aparecem
+com o selo **LOTAÇÃO AQUI**.
 
 **Sinais** — as notícias que o rastreador capturou: autorização de concurso, comissão
 formada, banca contratada, edital publicado. É aqui que aparece o concurso que ainda

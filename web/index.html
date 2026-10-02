@@ -102,7 +102,30 @@ main { max-width: 980px; margin: 0 auto; padding-block: 22px 72px; padding-inlin
   color: var(--tinta-3);
 }
 
-.filtros { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px; }
+.filtros { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
+.controles {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 12px 22px;
+  background: var(--carta); border: 1px solid var(--linha); border-radius: 7px;
+  padding: 12px 16px; margin-bottom: 16px;
+}
+.escopo { display: flex; align-items: center; gap: 11px; flex: 1 1 290px; min-width: 0; }
+.escopo input[type="range"] {
+  flex: 1; min-width: 0; accent-color: var(--azul); height: 20px; cursor: pointer;
+}
+.escopo-val { font-family: var(--dado); font-size: 13px; font-weight: 600; white-space: nowrap; }
+.escopo-val small { display: block; font-weight: 400; font-size: 11px; color: var(--tinta-3); }
+.ordenar { display: flex; align-items: center; gap: 8px; }
+.ordenar select {
+  font: inherit; font-size: 12.5px; padding: 5px 8px; border-radius: 5px;
+  border: 1px solid var(--linha-2); background: var(--carta); color: var(--tinta);
+}
+.ordenar select:focus-visible { outline: 2px solid var(--azul); outline-offset: 1px; }
+.cb { font-family: var(--dado); }
+.cb b { color: var(--ok); }
+.selo-lot {
+  font-size: 10px; font-weight: 700; letter-spacing: 0.05em; padding: 1px 6px;
+  border-radius: 3px; background: var(--prep-fraco); color: var(--prep); white-space: nowrap;
+}
 .chip {
   border: 1px solid var(--linha-2); background: var(--carta); color: var(--tinta-2);
   border-radius: 999px; padding: 5px 13px; font-size: 12.5px; font-weight: 500;
@@ -139,6 +162,24 @@ main { max-width: 980px; margin: 0 auto; padding-block: 22px 72px; padding-inlin
   font-size: 12.5px; color: var(--tinta-2);
 }
 .fatos b { font-family: var(--dado); font-weight: 500; color: var(--tinta); }
+.prev {
+  display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 9px;
+  margin-top: 10px; padding: 7px 11px; border-radius: 5px;
+  background: var(--mon-fraco); font-size: 12.5px; color: var(--tinta-2);
+}
+.prev b { font-family: var(--dado); font-size: 13px; color: var(--tinta); font-weight: 600; }
+.prev-rot { font-size: 10.5px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--tinta-3); }
+.prev-conf { margin-left: auto; font-size: 11.5px; color: var(--tinta-3); }
+.prev.vencido { background: var(--agora-fraco); }
+.prev.vencido b, .prev.vencido .prev-rot { color: var(--agora); }
+.prev.longe b { color: var(--tinta-3); }
+.conta {
+  margin: 0 0 12px; padding: 10px 12px; border-radius: 5px; background: var(--mon-fraco);
+  font-size: 12.5px; color: var(--tinta-2);
+}
+.conta b { font-family: var(--dado); color: var(--tinta); font-weight: 500; }
+.conta .linha-c { display: flex; flex-wrap: wrap; gap: 3px 18px; margin-top: 7px; font-size: 11.5px; }
+
 .aviso {
   margin-top: 10px; padding: 7px 10px; border-radius: 5px; font-size: 12.5px;
   background: var(--agora-fraco); color: var(--agora); font-weight: 500;
@@ -295,6 +336,24 @@ table.matriz td.cel.eu { background: var(--tinta) !important; color: var(--papel
     <div class="secao-titulo"><h2>O que decidir agora</h2></div>
     <p class="nota">Ordenado por aderência ao seu perfil: formação em engenharia civil, base em casa e passagem pela SEME. Marque <b>Vou fazer</b> e as outras duas abas se reorganizam só em torno do que você escolheu.</p>
     <div class="filtros" id="filtros"></div>
+    <div class="controles">
+      <label class="escopo">
+        <span class="etiqueta">Escopo</span>
+        <input type="range" id="raio" min="0" max="250" step="5" value="250"
+               aria-label="Distância máxima em quilômetros">
+        <span class="escopo-val" id="raio-val"></span>
+      </label>
+      <div class="ordenar">
+        <span class="etiqueta">Ordenar</span>
+        <select id="ordem">
+          <option value="score">Nota geral</option>
+          <option value="cb">Salário por hora de estudo</option>
+          <option value="km">Mais perto de casa</option>
+          <option value="quando">Sai mais cedo</option>
+          <option value="salario">Maior salário</option>
+        </select>
+      </div>
+    </div>
     <div class="lista" id="lista"></div>
   </section>
 
@@ -336,12 +395,13 @@ const FASE = { aberto:"ABERTO", iminente:"EDITAL", autorizado:"AUTORIZ.", previs
 const CHAVE = "radar-concursos-v1";
 
 let D = null, filtro = "acionaveis", abertos = new Set(), local = ler();
+let raioMax = local.raioMax ?? 250, ordem = local.ordem ?? "score";
 
 function ler() { try { return JSON.parse(localStorage.getItem(CHAVE)) || {}; } catch { return {}; } }
 function gravar() { try { localStorage.setItem(CHAVE, JSON.stringify(local)); } catch {} }
 
 const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;" }[c]));
-const dec = (n) => String(n).replace('.', ',');
+const numBr = (n) => String(n).replace('.', ',');  // helper decimal; NAO confundir com a variavel local 'dec' (decisao)
 const reais = (n) => n ? "R$ " + n.toLocaleString("pt-BR", { maximumFractionDigits: 0 }) : "—";
 
 async function api(rota, corpo) {
@@ -441,14 +501,14 @@ function pintar() {
     `<span><b>${feitos}</b> aceitos</span>` +
     `<span style="color:var(--tinta-3)">${D.agenda?.roda_hoje ? "rastreando" : "pausa de fim de semana"}</span>`;
 
-  pintarFiltros(); pintarLista(); pintarNucleo(); pintarMatriz(); pintarBlocos(); pintarPlano(); pintarSinais();
+  pintarFiltros(); pintarLista(); pintarEscopo(); pintarNucleo(); pintarMatriz(); pintarBlocos(); pintarPlano(); pintarSinais();
 }
 
 function pintarFiltros() {
   const opcoes = [
     ["acionaveis", "No radar"],
     ["agora", "Pedem ação"],
-    ["perto", `Até ${D.raio_confortavel_km || 45} km`],
+    ["breve", "Sai até 2027"],
     ["engenharia", "Engenharia civil"],
     ["aceitos", "Aceitos"],
     ["tudo", "Tudo"],
@@ -460,9 +520,10 @@ function pintarFiltros() {
 function filtrar(c) {
   const dec = D.decisoes[c.id];
   if (dec === "descartar" && filtro !== "tudo") return false;
+  if (raioMax < 250 && c.km !== null && c.km > raioMax) return false;
   switch (filtro) {
     case "agora": return c.acionavel && (c.acao === "INSCREVER" || c.urgente);
-    case "perto": return c.acionavel && c.km !== null && c.km <= (D.raio_confortavel_km || 45);
+    case "breve": return c.acionavel && c.previsao?.central != null && c.previsao.central <= 2028;
     case "engenharia": return c.acionavel && c.trilha === "T1";
     case "aceitos": return dec === "fazer";
     case "tudo": return true;
@@ -470,8 +531,27 @@ function filtrar(c) {
   }
 }
 
+const ORDENA = {
+  score:   (a, b) => b.score - a.score,
+  cb:      (a, b) => (b.reais_por_hora || 0) - (a.reais_por_hora || 0),
+  km:      (a, b) => (a.km ?? 999) - (b.km ?? 999),
+  quando:  (a, b) => (a.previsao?.central ?? 9999) - (b.previsao?.central ?? 9999),
+  salario: (a, b) => (b.salario || 0) - (a.salario || 0),
+};
+
+function pintarEscopo() {
+  const r = document.getElementById("raio");
+  const v = document.getElementById("raio-val");
+  r.value = raioMax;
+  const dentro = D.concursos.filter(filtrar).length;
+  v.innerHTML = raioMax >= 250
+    ? `sem limite<small>${dentro} concursos</small>`
+    : `até ${raioMax} km<small>${dentro} concurso${dentro === 1 ? "" : "s"}</small>`;
+  document.getElementById("ordem").value = ordem;
+}
+
 function pintarLista() {
-  const itens = D.concursos.filter(filtrar);
+  const itens = D.concursos.filter(filtrar).sort(ORDENA[ordem] || ORDENA.score);
   const alvo = document.getElementById("lista");
   if (!itens.length) { alvo.innerHTML = '<p class="vazio">Nada neste filtro.</p>'; return; }
 
@@ -495,12 +575,15 @@ function pintarLista() {
         </div>
       </div>
       <div class="fatos">
-        <span>${c.km !== null ? `<b>${c.km}</b> km` : "distância n/d"}</span>
+        <span>${c.km !== null ? `<b>${c.km}</b> km` : "distância n/d"}${
+          c.lotacao_escolhivel ? ` <span class="selo-lot">LOTAÇÃO AQUI</span>` : ""}</span>
+        ${c.reais_por_hora ? `<span class="cb"><b>R$ ${numBr(c.reais_por_hora)}</b> por hora de estudo</span>` : ""}
         <span>${vagas ? `<b>${vagas}</b> vagas` : "vagas a definir"}</span>
         <span><b>${reais(c.salario)}</b></span>
         <span>${esc(D.status_legenda?.[c.status] || c.status)}</span>
         ${c.confianca === "estimado" ? '<span style="color:var(--tinta-3)">projeção, sem edital</span>' : ""}
       </div>
+      ${faixaPrevisao(c)}
       ${c.urgente ? `<div class="aviso">Inscrições encerram em ${c.dias_para_fechar} dia${c.dias_para_fechar === 1 ? "" : "s"} — ${c.inscricao_ate.split("-").reverse().join("/")}.</div>` : ""}
       <div class="acoes">
         <button class="bt ${dec === "fazer" ? "marcado" : "forte"}" data-dec="fazer" data-id="${c.id}">
@@ -515,6 +598,42 @@ function pintarLista() {
   }).join("");
 }
 
+function faixaPrevisao(c) {
+  const p = c.previsao;
+  if (!p || c.status === "aberto" || c.status === "encerrado" || c.status === "andamento") return "";
+  if (p.metodo === "sem base") {
+    return `<div class="prev"><span class="prev-rot">Edital previsto</span>
+      <b style="color:var(--tinta-3)">sem histórico para estimar</b>
+      <span class="prev-conf">nenhum edital anterior registrado</span></div>`;
+  }
+  const vencido = (p.atraso_anos || 0) > 0;
+  const longe = p.central !== null && p.central - (new Date().getFullYear() + new Date().getMonth() / 12) > 4;
+  return `<div class="prev ${vencido ? "vencido" : ""} ${longe ? "longe" : ""}">
+    <span class="prev-rot">Edital previsto</span>
+    <b>${esc(p.rotulo)}</b>
+    ${vencido ? `<span>· ciclo vencido há ${p.atraso_anos.toFixed(0)} ano${p.atraso_anos >= 2 ? "s" : ""}</span>` : ""}
+    <span class="prev-conf">confiança ${esc(p.confianca)}</span>
+  </div>`;
+}
+
+function contaPrevisao(c) {
+  const p = c.previsao;
+  if (!p || p.metodo === "sem base") return "";
+  const partes = [];
+  if (p.ultimo_edital) partes.push(`último edital em <b>${p.ultimo_edital}</b>`);
+  if (p.ciclo_medio_anos) partes.push(`ciclo de <b>${numBr(p.ciclo_medio_anos)}</b> anos`);
+  if (p.desvio_anos) partes.push(`margem de <b>±${numBr(p.desvio_anos)}</b> anos`);
+  if (p.ciclos_observados) partes.push(`<b>${p.ciclos_observados}</b> intervalo${p.ciclos_observados > 1 ? "s" : ""} medido${p.ciclos_observados > 1 ? "s" : ""}`);
+  return `<div class="conta">
+    ${esc(p.texto)}
+    <div class="linha-c">
+      <span>método: <b>${esc(p.metodo)}</b></span>
+      <span>base: ${esc(p.base)}</span>
+      ${partes.map((x) => `<span>${x}</span>`).join("")}
+    </div>
+  </div>`;
+}
+
 function detalhe(c) {
   const e = c.explicacao, k = c.componentes;
   const mx = c.maximos || D.pesos_max || { aderencia: 35, proximidade: 25, chance: 20, retorno: 10, janela: 10 };
@@ -527,6 +646,15 @@ function detalhe(c) {
       ${linha("Retorno", k.retorno, mx.retorno, e.retorno)}
       ${linha("Janela", k.janela, mx.janela, e.janela)}
     </dl>
+    ${c.reais_por_hora ? `<div class="conta">
+      <b>R$ ${numBr(c.reais_por_hora)}</b> de salário para cada hora de estudo que este edital exige.
+      <div class="linha-c">
+        <span>salário: <b>${reais(c.salario)}</b></span>
+        <span>carga do edital: <b>${c.horas_edital}h</b></span>
+        <span>${c.lotacao_escolhivel ? "prova a " + c.km_prova + " km, mas a lotação pode ser a " + c.km + " km de casa" : "lotação na cidade da prova"}</span>
+      </div>
+    </div>` : ""}
+    ${contaPrevisao(c)}
     ${c.observacao ? `<p class="obs">${esc(c.observacao)}</p>` : ""}
     <div class="etiqueta" style="margin-bottom:6px">O que cai nesta prova</div>
     <div class="discs">${(c.disciplinas || []).map((d) =>
@@ -601,7 +729,7 @@ function pintarPlano() {
   const hFeitas = feito.reduce((s, e) => s + e.horas, 0);
 
   alvo.innerHTML = `<p class="nota" style="margin-bottom:16px">
-      <b class="mono">${p.horas_total}h</b> no total — cerca de <b class="mono">${dec(p.semanas_total)}</b> semanas a 15h por semana.
+      <b class="mono">${p.horas_total}h</b> no total — cerca de <b class="mono">${numBr(p.semanas_total)}</b> semanas a 15h por semana.
       Você já fechou <b class="mono">${hFeitas}h</b> (${Math.round(100 * hFeitas / p.horas_total)}%).
     </p>` + p.etapas.map((e, i) => {
     const ok = prog[e.codigo] === "feito";
@@ -613,7 +741,7 @@ function pintarPlano() {
           <span class="e-nome">${i + 1}. ${esc(e.nome)}</span>
           <span class="e-sub">cobre ${e.alcance} concurso${e.alcance === 1 ? "" : "s"} · ao chegar aqui você terá ${e.pct_radar_coberto}% do radar coberto</span>
         </span>
-        <span class="e-dir"><b>${e.horas}h</b>${dec(e.semanas_acumuladas)} sem.</span>
+        <span class="e-dir"><b>${e.horas}h</b>${numBr(e.semanas_acumuladas)} sem.</span>
       </button>
       ${ab ? `<div class="topicos">
         ${e.dica ? `<div class="dica">${esc(e.dica)}</div>` : ""}
@@ -656,7 +784,18 @@ document.addEventListener("click", async (ev) => {
     if (novo) local.decisoes[id] = novo; else delete local.decisoes[id];
     gravar();
     await api("/api/decisao", { id, decisao: novo || "indefinido" });
-    return carregar();
+    return document.getElementById("raio").addEventListener("input", (ev) => {
+  raioMax = +ev.target.value;
+  local.raioMax = raioMax; gravar();
+  pintarLista(); pintarEscopo();
+});
+document.getElementById("ordem").addEventListener("change", (ev) => {
+  ordem = ev.target.value;
+  local.ordem = ordem; gravar();
+  pintarLista();
+});
+
+carregar();
   }
   if (t.dataset.abrir) {
     abertos.has(t.dataset.abrir) ? abertos.delete(t.dataset.abrir) : abertos.add(t.dataset.abrir);
@@ -676,6 +815,17 @@ document.addEventListener("click", async (ev) => {
     abertos.has(k) ? abertos.delete(k) : abertos.add(k);
     return pintarPlano();
   }
+});
+
+document.getElementById("raio").addEventListener("input", (ev) => {
+  raioMax = +ev.target.value;
+  local.raioMax = raioMax; gravar();
+  pintarLista(); pintarEscopo();
+});
+document.getElementById("ordem").addEventListener("change", (ev) => {
+  ordem = ev.target.value;
+  local.ordem = ordem; gravar();
+  pintarLista();
 });
 
 carregar();

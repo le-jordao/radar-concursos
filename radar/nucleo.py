@@ -7,6 +7,8 @@ import unicodedata
 from datetime import date, datetime
 from pathlib import Path
 
+from . import previsao as _previsao
+
 RAIZ = Path(__file__).resolve().parent.parent
 DADOS = RAIZ / "dados"
 
@@ -110,9 +112,17 @@ def _pontos_aderencia(concurso: dict, perfil: dict) -> tuple[float, str]:
 
 def _pontos_proximidade(concurso: dict, perfil: dict, municipios: dict) -> tuple[float, float | None]:
     teto = pesos(perfil)["proximidade"]
-    km = distancia(municipios, concurso.get("local_prova", ""))
+    km_prova = distancia(municipios, concurso.get("local_prova", ""))
+
+    # Órgão com unidade perto de casa (INSS, Correios, bancos, Detran): o que pesa é a
+    # lotação possível, não a cidade da prova. A prova é um dia; a lotação é todo dia.
+    if concurso.get("lotacao_escolhivel") and concurso.get("lotacao_km") is not None:
+        km = float(concurso["lotacao_km"])
+    else:
+        km = km_prova
+
     if km is None:
-        return 10.0, None
+        return teto * 0.4, None
 
     conf = perfil["base"]["raio_confortavel_km"]
     maxi = perfil["base"]["raio_maximo_km"]
@@ -183,15 +193,54 @@ def _dias_para(iso: str | None) -> int | None:
         return None
 
 
-def pontuar(concurso: dict, perfil: dict, municipios: dict) -> dict:
-    """Devolve o concurso enriquecido com score, explicação e rótulo de ação."""
+def _pontos_janela(concurso: dict, prev: dict | None, teto: float) -> tuple[float, str]:
+    """Quanto falta para o edital. Previsão manda; sem previsão, cai no status."""
+    status = concurso.get("status", "previsto")
+    if prev and prev.get("central") is not None:
+        falta = prev["central"] - _previsao._hoje_decimal()
+        if falta <= 0:
+            fator, nota = 1.0, "edital já publicado"
+        elif falta <= 0.5:
+            fator, nota = 0.9, f"previsto para {prev['rotulo']}"
+        elif falta <= 1:
+            fator, nota = 0.75, f"previsto para {prev['rotulo']}"
+        elif falta <= 2:
+            fator, nota = 0.55, f"previsto para {prev['rotulo']}"
+        elif falta <= 4:
+            fator, nota = 0.3, f"previsto só para {prev['rotulo']}"
+        else:
+            fator, nota = 0.12, f"previsto só para {prev['rotulo']} — longe demais para ser prioridade"
+        if prev.get("atraso_anos") and prev["atraso_anos"] > 0:
+            nota += f"; ciclo vencido há {prev['atraso_anos']:.0f} ano(s)"
+        return round(teto * fator, 1), nota
+    return round(PESO_STATUS.get(status, 5.0) * teto / 10.0, 1), f"situação: {status}"
+
+
+def _texto_proximidade(concurso: dict, km: float | None, perfil: dict) -> str:
+    if km is None:
+        return "distância não mapeada"
+    base = perfil["base"]["municipio"]
+    if concurso.get("lotacao_escolhivel"):
+        return f"{km:.0f} km — dá para pedir lotação perto de casa, mesmo com a prova longe"
+    return f"{km:.0f} km de {base}"
+
+
+def horas_edital(concurso: dict, disciplinas: dict) -> float:
+    """Carga de estudo que este edital exige, somando as disciplinas que ele cobra."""
+    return sum(_horas(disciplinas, c) for c in concurso.get("disciplinas", []))
+
+
+def pontuar(concurso: dict, perfil: dict, municipios: dict, ciclos: dict | None = None,
+            disciplinas: dict | None = None) -> dict:
+    """Devolve o concurso enriquecido com score, previsão de edital e explicação."""
     w = pesos(perfil)
     aderencia, motivo_ader = _pontos_aderencia(concurso, perfil)
     proximidade, km = _pontos_proximidade(concurso, perfil, municipios)
     chance, nota_chance = _pontos_chance(concurso, w["chance"])
     retorno = _pontos_retorno(concurso, w["retorno"])
     status = concurso.get("status", "previsto")
-    janela = round(PESO_STATUS.get(status, 5.0) * w["janela"] / 10.0, 1)
+    prev = _previsao.prever(concurso, ciclos or {"municipal": 9.0, "estadual": 14.0, "federal": 10.0})
+    janela, nota_janela = _pontos_janela(concurso, prev, w["janela"])
 
     total = aderencia + proximidade + chance + retorno + janela
 
@@ -214,25 +263,37 @@ def pontuar(concurso: dict, perfil: dict, municipios: dict) -> dict:
             },
             "explicacao": {
                 "aderencia": motivo_ader,
-                "proximidade": (f"{km:.0f} km de Cabo Frio" if km is not None else "distância não mapeada"),
+                "proximidade": _texto_proximidade(concurso, km, perfil),
                 "chance": nota_chance,
                 "retorno": (f"R$ {concurso['salario']:,.2f}".replace(",", "X").replace(".", ",").replace("X", ".") if concurso.get("salario") else "salário não divulgado"),
-                "janela": f"situação: {status}",
+                "janela": nota_janela,
             },
             "maximos": w,
+            "previsao": prev,
             "km": km,
+            "km_prova": distancia(municipios, concurso.get("local_prova", "")),
+            "lotacao_escolhivel": bool(concurso.get("lotacao_escolhivel")),
             "acionavel": status in ACIONAVEL and aderencia > 0,
             "acao": ROTULO_ACAO.get(status, "MONITORAR"),
             "dias_para_fechar": dias,
             "urgente": dias is not None and 0 <= dias <= 30,
         }
     )
+
+    if disciplinas:
+        h = horas_edital(concurso, disciplinas)
+        enriquecido["horas_edital"] = h
+        enriquecido["reais_por_hora"] = round((concurso.get("salario") or 0) / h, 1) if h else None
+
     return enriquecido
 
 
 def ranquear(base: dict | None = None) -> list[dict]:
     base = base or carregar()
-    saida = [pontuar(c, base["perfil"], base["municipios"]) for c in base["concursos"]["concursos"]]
+    ciclos = {k: v for k, v in base["concursos"].get("ciclos_padrao_anos", {}).items()
+              if not k.startswith("_")}
+    saida = [pontuar(c, base["perfil"], base["municipios"], ciclos, base["disciplinas"])
+             for c in base["concursos"]["concursos"]]
     saida.sort(key=lambda c: (-c["score"], c["orgao"]))
     return saida
 
