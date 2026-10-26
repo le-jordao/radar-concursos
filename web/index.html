@@ -589,6 +589,7 @@ function pintarLista() {
         <button class="bt ${dec === "fazer" ? "marcado" : "forte"}" data-dec="fazer" data-id="${c.id}">
           ${dec === "fazer" ? "✓ Vou fazer" : "Vou fazer"}
         </button>
+        ${linkInscricao(c) ? `<a class="bt forte" href="${esc(linkInscricao(c))}" target="_blank" rel="noopener">Se inscrever</a>` : ""}
         <button class="bt" data-dec="descartar" data-id="${c.id}">${dec === "descartar" ? "Descartado" : "Descartar"}</button>
         <button class="bt" data-abrir="${c.id}">${aberto ? "Fechar" : "Por que esta nota"}</button>
         ${c.fonte ? `<a class="bt" href="${esc(c.fonte)}" target="_blank" rel="noopener">Fonte</a>` : ""}
@@ -596,6 +597,14 @@ function pintarLista() {
       ${aberto ? detalhe(c) : ""}
     </article>`;
   }).join("");
+}
+
+/* "Se inscrever" abre a página de inscrição da banca (campo link_inscricao em concursos.json).
+   Só aparece com inscrição aberta, prazo não vencido e link cadastrado — nunca cai na notícia. */
+function linkInscricao(c) {
+  if (c.status !== "aberto" || !c.link_inscricao) return "";
+  if (c.dias_para_fechar !== null && c.dias_para_fechar !== undefined && c.dias_para_fechar < 0) return "";
+  return c.link_inscricao;
 }
 
 function faixaPrevisao(c) {
@@ -781,21 +790,10 @@ document.addEventListener("click", async (ev) => {
   if (t.dataset.dec) {
     const id = t.dataset.id, novo = D.decisoes[id] === t.dataset.dec ? "" : t.dataset.dec;
     local.decisoes = local.decisoes || {};
-    if (novo) local.decisoes[id] = novo; else delete local.decisoes[id];
+    local.decisoes[id] = novo || "indefinido";   // guarda "indefinido" para anular a decisão vinda do servidor
     gravar();
     await api("/api/decisao", { id, decisao: novo || "indefinido" });
-    return document.getElementById("raio").addEventListener("input", (ev) => {
-  raioMax = +ev.target.value;
-  local.raioMax = raioMax; gravar();
-  pintarLista(); pintarEscopo();
-});
-document.getElementById("ordem").addEventListener("change", (ev) => {
-  ordem = ev.target.value;
-  local.ordem = ordem; gravar();
-  pintarLista();
-});
-
-carregar();
+    return carregar();   // refaz o painel: as outras abas passam a considerar só os "Vou fazer"
   }
   if (t.dataset.abrir) {
     abertos.has(t.dataset.abrir) ? abertos.delete(t.dataset.abrir) : abertos.add(t.dataset.abrir);
